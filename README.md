@@ -47,23 +47,26 @@ Es importante conocer bien los actores principales del ecosistema Laravel:
 
 
 ### Preparar el entorno de desarrollo
-You can develop a Laravel application in any machine running Apache, PHP and Composer. In order to make this step easier, we'll use Laravel Homestead. Homestead is a prepared Vagrant box that provides a development environment with every software you need: PHP, a web server, a database, etc.
-#### 1. Install VirtualBox 6.x
-Download and install from the official site [www.virtualbox.org](https://www.virtualbox.org/) (you can also use VMWare, Parallels or Hyper-V).
-#### 2. Install [Vagrant](https://www.vagrantup.com/downloads.html).
-Download and install from the official site [https://www.vagrantup.com]((https://www.vagrantup.com/downloads.html))
-#### 3. Add the laravel/homestead box to your Vagrant installation:
-A Vagrant box is a base image used to quickly clone a virtual machine. Run the following command in order to download and store the Laravel box so that multiple Vagrant environments can re-use it.
+Puedes lanzar una aplicación desarrollada con Laravel en cualquier máquina o servidor con Apache, PHP y Composer. Para facilitar la creación del entorno de desarrollo, utilizaremos Laravel Homestead. Homestead es una Vagrant box que provee de un entorno de desarrollo con todo el software necesario: PHP, servidor web, base de datos, gestor de dependencias, etc.
+
+#### 1. Instalar VirtualBox 6.x
+Descarga VirtualBox desde la página web oficial [www.virtualbox.org](https://www.virtualbox.org/) e instálalo en tu ordenador. También puedes utilizar VMWare, Parallels o Hyper-V en lugar de Virtual Box.
+#### 2. Instalar [Vagrant](https://www.vagrantup.com/downloads.html).
+Descarga e instala Vagrant tal y como lo indica la documentación de la página web oficial [https://www.vagrantup.com]((https://www.vagrantup.com/downloads.html)).
+#### 3. Añadir laravel/homestead box a tu instalación de Vagrant
+Una Vagrant box es una imagen base utilizada para clonar de forma rápida y sencilla una máquina virtual. Ejecuta el siguiente comando para descargar e instalar la Vagrant box the Larabel y así poder utilizarla para crear tantos entornos como quieras.
 ```
 vagrant box add laravel/homestead
 ```
-#### 4. Install Homestead
-Clone the repository in a folder named "Homestead".
+Puedes comprobar que se ha añadido correctamente utilizando el comando `vagrant box list`.
+
+#### 4. Instalar Homestead
+Clona el repositorio oficial de Homestead en un directorio. Como recomendación, puedes clonarlo en una carpeta llamada Homestead en la raíz de tu sistema, y utilizar esta máquina virtual para todos tus proyectos de Laravel.
 ```
 git clone https://github.com/laravel/homestead.git ~/Homestead
 ```
-#### 5. Create the Homestead.yaml configuration file
-Run the bash init.sh command from the Homestead directory. This will create the Homestead.yaml configuration file in the Homestead directory.
+#### 5. Crea el archivo de configuración Homestead.yaml
+Ejecuta el comando init.sh en un terminal dentro del directorio donde clonaste Homestead. Este comando creará el archivo de configuración Homestead.yaml.
 ```
 // Mac / Linux...
 bash init.sh
@@ -72,7 +75,7 @@ bash init.sh
 init.bat
 ```
 
-Created Homestead.yaml configuration file:
+El archivo Homestead.yaml creado tendrá el siguiente aspecto:
 ```
 ip: "192.168.10.10"
 memory: 2048
@@ -96,7 +99,7 @@ databases:
     - homestead
 ```
 
-#### 6. Generate ssh keys
+#### 6. Genera las claves ssh
 If you don't have ssh keys uou will need to generate them from the terminal. Try to find the .ssh folder on your system (typically under C:\Users\USER_NAME in Windows and under the root folder ~ in Linux/Mac ) and look if two files named id_rsa and id_rsa.pub are present. You can skip this step if you find them. If not, run the following command from the console:
 
 ```
