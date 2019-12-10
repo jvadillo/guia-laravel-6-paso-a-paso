@@ -76,6 +76,7 @@ init.bat
 ```
 
 El archivo Homestead.yaml creado tendrá el siguiente aspecto:
+
 ```
 ip: "192.168.10.10"
 memory: 2048
@@ -100,18 +101,18 @@ databases:
 ```
 
 #### 6. Genera las claves ssh
-If you don't have ssh keys uou will need to generate them from the terminal. Try to find the .ssh folder on your system (typically under C:\Users\USER_NAME in Windows and under the root folder ~ in Linux/Mac ) and look if two files named id_rsa and id_rsa.pub are present. You can skip this step if you find them. If not, run the following command from the console:
+Si no dispones de unas clasves ssh en el sistema necesitarás generarlas desde un terminal. Para saber si ya dispones de ellas, intanta encontrar el directorio `.ssh` en tu sistema operativo (normalmente suele encontrarse en C:\Users\USER_NAME en Windows y el el directorio raíz ~ en Linux/Mac ) y busca dos archivos llamados `id_rsa` y `id_rsa.pub`. Si los has encontrado, puedes saltarte este paso. En caso contrario, lanza el siguiente comando desde la consola:
 
 ```
 ssh-keygen -t rsa -C "your_email@example.com"
 ```
 
-It will ask you some questions, so simply press ENTER and It will create two files named `id_rsa` and `id_rsa.pub` in a folder named `.ssh`.
+El script te realizará algunas preguntas, simplemente pulsa ENTER y te creará los archivos `id_rsa` y `id_rsa.pub` en un directorio con nombre `.ssh`.
 
-#### 7. Configure Homestead
-There are many things you can configure in Homestead, but we will mention just the most inportant ones:
+#### 7. Configurar Homestead
+En esta instalación no tendrás que tocar el archivo `Vagrantfile` (probablemente estés familiarizado con él ya que es típicamente el utilizado para configurar el entorno). Homestead delega la configuración en el archivo `Homestead.yaml`,  por lo que a continuación te mostraremos las opciones más importantes que tendrás que configurar:
 
-- **ssh keys**: the automatically created configuration will be OK for both Mac and Linux. If you are using Windows, edit the following values:
+- **ssh keys**: el fichero de configuración Homestead.yaml tendrá la configuración realizada correctamente tanto para Mac como Linux. Si estás utilizando Windows, modifica los siguientes valores:
 
 ```
 authorize: c:/Users/USER_NAME/.ssh/id_rsa.pub
@@ -120,7 +121,7 @@ keys:
     - c:/Users/USER_NAME/.ssh/id_rsa
 ```
 
-- **Shared folders**: the folders listed will be kept in sync between your local machine and the Homestead environment. Modify the value of the 'map' key and write your project's folder (i.e. `/Users/USER_NAME/dev/my-project` in Linux/Mac or `c:/dev/my-project` in Windows).
+- **Shared folders**: en este apartado se indican los directorios de la máquina local que se mantendrán sincronizados con la máquina virtual creada. Modifica el valor de 'map' y escribe la carpeta de tu proyecto (p.ej. `/Users/USER_NAME/dev/my-project` en Linux/Mac o `c:/dev/my-project` en Windows).
 ```
 folders:
     - map: ~/code/project1
@@ -129,14 +130,14 @@ folders:
     - map: ~/code/project2
       to: /home/vagrant/project2
 ```
-- **Nginx Sites**: The sites property allows you to easily map a "domain" to a folder on your Homestead environment.
+- **Sites**: La propiedad sites permite mapear fácilmente un dominio con un directorio de nuestro entorno virtual. De este forma podremos utilizar el dominio indicado para acceder a nuestra aplicación desde el navegador:
 ```
 sites:
     - map: homestead.test
       to: /home/vagrant/project1/public
 ```
 
-#### 8. Configure local hosts
+#### 8. Configurar el archivo local hosts
 If you use the same development environmet for multiple applications, you will need to add the "domains" to the hosts file of your computer, in order to redirect the requests for your Homestead sites into your Homestead machine.
 Edit the hosts file (located at /etc/hosts on Mac/Linux and at C:\Windows\System32\drivers\etc\hosts on Windows):
 
