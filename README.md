@@ -135,33 +135,37 @@ folders:
 sites:
     - map: homestead.test
       to: /home/vagrant/project1/public
+    - map: miapp.test
+      to: /home/vagrant/project2/public
 ```
 
 #### 8. Configurar el archivo local hosts
-If you use the same development environmet for multiple applications, you will need to add the "domains" to the hosts file of your computer, in order to redirect the requests for your Homestead sites into your Homestead machine.
-Edit the hosts file (located at /etc/hosts on Mac/Linux and at C:\Windows\System32\drivers\etc\hosts on Windows):
+Es probable que vayas a utilizar el entorno virtual creado para múltiples proyectos o aplicaciones, por lo que necesitarás añadir los dominios indicados en el anterior apartado de 'sites' al archivo `hosts` de tu ordenador. De esta forma puedes redirigir las peticiones a dominios concretos a aplicaciones de tu entorno virtual Homestead.
+
+Modifica el archivo `hosts` (lo encontrarás en `/etc/hosts` en Mac/Linux y en `C:\Windows\System32\drivers\etc\hosts` en Windows):
 
 ```
 192.168.10.10  homestead.test
+192.168.10.10  miapp.test
 ```
 
-The general recommendation is tu use ".localhost", ".invalid", ".test", or ".example" domains.
+Para evitar otro tipo de problemas, la recomendación general es utilizar dominios de tipo ".localhost", ".invalid", ".test", or ".example".
 
-#### 9. Run and test your virtual machine
+#### 9. Arrancar y prueba el entorno creado
 
-Once we have edited the Homestead configuration file and the hosts file on our local machine, go to the Homestead directory and run the following command to boot the virtual machine:
+Una vez ya tenemos Homestead configurado y el archivo `hosts` modificado, ya podemos ir al directorio `Homestead` y ejecutar el siguiente comando para arranchar la máquina virtual (la primera vez tardará más tiempo al tener que realizar la preparación del entorno):
 
 ```
 vagrant up
 ```
 
-You can now use SSH to log in your virtual machine:
+Puedes acceder mediante SSH a tu máquina virtual:
 
 ```
 vagrant ssh
 ```
 
-Congratulations! You are ready to create your first Laravel application.
+¡Enhorabuena! Ya estás preparado para comenzar a crear tu primera aplicación web con Laravel.
 
 ## Learn the basics in 9 steps
 ### Step 1 - Create your first project
