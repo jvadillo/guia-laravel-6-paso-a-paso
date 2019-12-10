@@ -633,7 +633,7 @@ php artisan make:model Article -mcr
 
 
 
-### Práctica 1: Crea la aplicación Periodico-App
+### Práctica 1: Crea la aplicación RevistApp
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
 
 
