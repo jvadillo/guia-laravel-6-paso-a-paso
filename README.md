@@ -27,26 +27,26 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
 
 ## Introduction
 
-### Prerequisites
+### Prerequisitos
 Para seguir esta guía únicamente necesitarás conocimientos básicos/medios de PHP y motivación para aprender.
 ¡Comencemos!
 
-### Entendiendo los conceptos básicos
+### Conceptos básicos
 Tal y como dice la guía oficial, Laravel es un framework de desarrollo de aplicaciones web con una sintaxis elegante que nos permitirá desarrollar aplicaciones web de forma rápida y segura:
 
 > Laravel is a web application framework with expressive, elegant syntax 
 that will let us to develop web applications in a fast and secure way.
 
 Es importante conocer bien los actores principales del ecosistema Laravel:
-- Router: handles every incoming request and dispatches it to a controller (as well as run any specific middleware).
-- Controllers: they contain the request handling logic.
-- Views: they contain the HTML and separate the controller (application logic) from the presentation logic.
-- Models: they are used to interact with the database and handle business logic.
+- Router: recibe todas las peticiones y las envía al controlador adecuado (también puede ejecutar algún middleware específico antes de llamar al controlador).
+- Controladores (Controllers): contienen toda la lógica para reaccionar a las peticiones entrantes.
+- Vistas (Views): contienen el código HTML y separan la presentación de la lógica de la aplicación (controlador).
+- Modelos (Models): se utilizan para interactuar con la base de datos y aplicar la lógica de negocio.
 
 ![Laravel diagram](https://upload.wikimedia.org/wikipedia/commons/9/94/%E0%A6%B2%E0%A6%BE%E0%A6%B0%E0%A6%BE%E0%A6%AD%E0%A7%87%E0%A6%B2_%E0%A6%86%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A6%BF%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A6%9A%E0%A6%BE%E0%A6%B0_.jpg)
 
 
-### Preparing you local development environment
+### Preparar el entorno de desarrollo
 You can develop a Laravel application in any machine running Apache, PHP and Composer. In order to make this step easier, we'll use Laravel Homestead. Homestead is a prepared Vagrant box that provides a development environment with every software you need: PHP, a web server, a database, etc.
 #### 1. Install VirtualBox 6.x
 Download and install from the official site [www.virtualbox.org](https://www.virtualbox.org/) (you can also use VMWare, Parallels or Hyper-V).
