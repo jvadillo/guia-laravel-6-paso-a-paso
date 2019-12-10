@@ -644,7 +644,7 @@ Crea una aplicación Laravel que muestre un listado de artículos de la base de 
 
 ![Licencia_img](http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc-sa.png)
 
-Este libro esta licenciado como [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es_ES) aunque no necesariamente las imágenes de su interior.
+Esta guía esta licenciada como [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es_ES) aunque no necesariamente las imágenes de su interior.
 
-El código que contiene este [repositorio](https://github.com/jvadillo/aprende-python-desde-cero-a-experto/) se encuenta bajo la licencia [GNU GPL-3.0](https://github.com/jvadillo/aprende-python-desde-cero-a-experto/blob/master/LICENSE)
+El código que contiene este [repositorio](https://github.com/jvadillo/guia-laravel-paso-a-paso) se encuenta bajo la licencia [GNU GPL-3.0](https://github.com/jvadillo/guia-laravel-paso-a-paso/blob/master/LICENSE)
 
