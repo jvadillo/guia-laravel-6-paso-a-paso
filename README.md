@@ -1,29 +1,27 @@
-# Aprende Laravel 6: guía paso a paso
+# Aprende Laravel 6: guía paso a paso :rocket:
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://www.jonvadillo.com) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://www.jonvadillo.com) [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://www.jonvadillo.com)
 
 Esto es una guía práctica para aprender a paso a paso a desarrollar aplicaciones web con Laravel 6.
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
-	- [Prerequisites](#prerequisites)
-	- [Understanding basic concepts](#understanding-basic-concepts)
-	- [Preparing you local development environment](#preparing-you-local-development-environment)
-- [Learn the basics in 8 steps](#learn-the-basics-in-9-steps)
-	- [Step 1 - Create your first project](#step-1---create-your-first-project)
-	- [Step 2 - Configuring the project](#step-2---configuring-the-project)
-	- [Step 3 - Create a Router](#step-3---create-a-router)
-	- [Step 4 - Create a View](#step-4---create-a-view)
-	- [Step 5 - Create a Controller](#step-5---create-a-controller)
-	- [Step 6 - Set up the database](#step-6---set-up-the-database)
-	- [Step 7 - Create Migration](#step-7---create-migration)
-	- [Step 8 - Create a Model](#step-8---create-a-model)
-	- [Bonus - Artisan flags](#bonus---artisan-flags)
-	- [Practice: Creating a Newspaper App](#practice-creating-a-newspaper-app)
-	- [Hands on: Creating a Newspaper App](#hands-on-creating-a-newspaper-app)
-- [Forms](#forms)
-	- [Step 1 - Create the routes and the controller methods](#step-1---create-the-routes-and-the-controller-methods)
-	- [Step 2 - Create the view](#step-2---create-the-view)
-- [References](#references)
+  * [Prerequisitos](#prerequisitos)
+  * [Conceptos básicos](#conceptos-b-sicos)
+  * [Preparar el entorno de desarrollo](#preparar-el-entorno-de-desarrollo)
+- [Aprende lo imprescindible en 9 pasos](#aprende-lo-imprescindible-en-9-pasos)
+  * [Paso 1 - Crea tu primer proyecto](#paso-1---crea-tu-primer-proyecto)
+  * [Step 2 - Configura el proyecto](#step-2---configura-el-proyecto)
+  * [Paso 3 - Crear un Router](#paso-3---crear-un-router)
+  * [Paso 4 - Crear una vista](#paso-4---crear-una-vista)
+  * [Paso 5 - Crear un Controlador](#paso-5---crear-un-controlador)
+  * [Paso 6 - Configurar la base de datos](#paso-6---configurar-la-base-de-datos)
+  * [Paso 7 - Crear la Migración (Migration)](#paso-7---crear-la-migraci-n--migration-)
+  * [Paso 8 - Crear un Modelo](#paso-8---crear-un-modelo)
+  * [Bonus - Opciones (flags) de Artisan](#bonus---opciones--flags--de-artisan)
+  * [Práctica 1: Crea la aplicación Periodico-App](#pr-ctica-1--crea-la-aplicaci-n-periodico-app)
+- [Referencias](#referencias)
+- [Licencia](#licencia)
+
 
 ## Introduction
 
@@ -641,4 +639,12 @@ Crea una aplicación Laravel que muestre un listado de artículos de la base de 
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
+
+## Licencia
+
+![Licencia_img](http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc-sa.png)
+
+Este libro esta licenciado como [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es_ES) aunque no necesariamente las imágenes de su interior.
+
+El código que contiene este [repositorio](https://github.com/jvadillo/aprende-python-desde-cero-a-experto/) se encuenta bajo la licencia [GNU GPL-3.0](https://github.com/jvadillo/aprende-python-desde-cero-a-experto/blob/master/LICENSE)
 
