@@ -167,33 +167,36 @@ vagrant ssh
 
 ¡Enhorabuena! Ya estás preparado para comenzar a crear tu primera aplicación web con Laravel.
 
-## Learn the basics in 9 steps
-### Step 1 - Create your first project
-Access to the vagrant machine using the `vagrant ssh` command and create a new project running the following command:
+* Puedes detener la máquina virtual con el comando `vagrant halt`.
+
+## Aprende lo imprescindible en 9 pasos
+### Paso 1 - Crea tu primer proyecto
+Accede a tu máquina virtual utilizando el comando `vagrant ssh` y ejecuta el siguiente comando para crear un nuevo proyecto:
 
 ```
-composer create-project --prefer-dist laravel/laravel my-laravel-project
-```
-This will initialize a project in the my-laravel-project folder. You can now access the site, http://homestead.test, using your favourite browser.
-
-Alternatively you can use `laravel new` command that will also create a new Laravel installation in the directory you specify:
-```
-laravel new my-laravel-project
+composer create-project --prefer-dist laravel/laravel articulos-app
 ```
 
-### Step 2 - Configuring the project
-#### Application Key
-Laravel uses an application key to secure you application. The application key is a 32 character string used to encrypt data like user sessions. When Laravel is installed using Composer or the Laravel installer, the key is automatically set for you. Check if there is a value for the APP_KEY value of your .env file and execute the following command if you need to generate it:
+Este comando inicializará un nuevo proyecto creado en el directorio `noticias-app`. Puedes acceder a la aplicación entrando a http://homestead.test (o el dominio que hayas indicado en la configuración) desde tu navegador favorito.
+
+De forma alternativa también puedes utilizar el comando `laravel new` que también creará un nuevo proyecto de Laravel en la carpeta especificada:
+```
+laravel new articulos-app
+```
+
+### Step 2 - Configura el proyecto
+#### La clave de la aplicación (Application Key)
+Laravel utiliza una clave para securizar tu aplicación. La clave de aplicación es un string de 32 caracteres utilizado para encriptar datos como la sesión de usuario. Cuando se instala Laravel utilizando Composer o el instalador de Laravel, la clave se genera automáticamente, por lo que no es necesario hacer nada. Comprueba que existe un valor para APP_KEY en el fichero de configuración `.env`. En caso de no tener una clave generada, créala utilizando el siguiente comando:
 
 ```
 php artisan key:generate
 ```
 
-#### Directory Permissions
-As Homestead does this step for us, permissions should already be correctly set. If you are not using Homestead or you want to deploy your appllication in a server, don't forget setting `storage` and  `bootstrap/cache` directories as writable by the web server.
+#### Permisos de directorio
+Homestead realiza este paso por nosotros, por lo que los permisos deberían estar correctamente establecidos. Si no estás utilizando Homestead o quieres desplegar tu aplicación en un servidor, no olvides establecer permisos de escritura para el servidor web en los directorios `storage` y  `bootstrap/cache`.
 
-### Step 3 - Create a Router
-When the user makes a request for a route, Laravel will handle the request by a router located in the `routes` directory, who will dispatch the request to a controller. Routes for web interfaces will be defined in the `routes/web.php` file and the ones defined for webservices will be placed in the `routes/api.php` file.
+### Paso 3 - Crear un Router
+Cada vez que un usuario hace una petición a una de las rutas de la aplicación, Laravel trata la petición mediante un Router definido en el directorio `routes`, el cual será el encargado de direccionar la petición a un Controlador. Las rutas accesibles para navegadores estarán definidas en el archivo `routes/web.php` y aquellas accesibles para servicios web (webservices) estarán definidas en el archivo `routes/api.php`. A continuación se muestra un ejemplo:
 
 ```php
 Route::get('/articles', function () {
@@ -202,12 +205,12 @@ Route::get('/articles', function () {
 
 ```
 
-The code above shows how to define a basic route. In this case, when the user makes a request for the /articles, our application will send a response with the 'Let's read the articles!' string.
+El código anterior muestra cómo se define una ruta básica. En este caso, cuando el usuario realice una petición sobre `/articles`, nuestra aplicación enviará una respuesta al usuario con el string 'Let's read the articles!'.
 
-Apart executing the actions defined for each route, Laravel will run the route specific middlewere depending on the router userd (for example, the middlewere related to the web router will provide features like session state and CSRF protection).
+Aparte de ejecutar las acciones definidas para cada ruta, Laravel ejecutará middlewere específico en función del Router utilizado (por ejemplo, el middlewere relacionado con las peticiones web proveerá de funcionalidades como el estado de la sesión o la protección (CSRF)[https://es.wikipedia.org/wiki/Cross-site_request_forgery]).
 
-#### Returnin a JSON
-It is also possible to return a JSON. Laravel will automatically convert arrays to JSON:
+#### Devolver un JSON
+También es posible devolver un JSON. Laravel convertirá automáticamente un array a JSON:
 
 ```php
 Route::get('/articles', function () {
@@ -216,8 +219,8 @@ Route::get('/articles', function () {
 
 ```
 
-#### Route parameters
-A URL may contain some information of our interest. Laravel allows you to do this easily using route parameters:
+#### Parámetros en la ruta
+Una URL puede contener información de nuestro interés. Laravel permite acceder a esta información de forma sencilla utilizando los parámetros de ruta:
 
 ```php
 Route::get('articles/{id}', function ($id) {
@@ -225,7 +228,7 @@ Route::get('articles/{id}', function ($id) {
 });
 ```
 
-Route parameters are encased within {} braces and are injected into route callbacks. You can use as many route parameters as you want:
+Los parámetros de ruta vienen definidos entre llaves `{}` y se inyectan automáticamente en las callbacks. Es posible utilizar más de un parámetro de ruta:
 
 ```php
 Route::get('articles/{id}/user/{name}', function ($id, $name) {
@@ -233,8 +236,8 @@ Route::get('articles/{id}/user/{name}', function ($id, $name) {
 });
 ```
 
-#### Accesing to request data
-Is it also possible to acces to request data. The following code will return the value for the 'date' parameter of the `/articles?date=today` URL:
+#### Acceder a la información de la petición
+También es posible acceder a la información enviada en la petición. Por ejemplo, el siguiente código devolverá el valor enviado para el parámetro 'date' de la URL `/articles?date=today`:
 
 ```php
 Route::get('/articles', function () {
@@ -243,13 +246,13 @@ Route::get('/articles', function () {
 });
 ```
 
-### Step 4 - Create a View
+### Paso 4 - Crear una vista
 
-#### Defining a basic view
-Views contain the HTML served by our application and are stored in the `resources/views` directory.
+#### Definiendo una vista sencilla
+Las vistas contienen el HTML que sirve nuestra aplicación a los usuarios. Se almacenan en el directorio `resources/views` de nuestro proyecto.
 
 ```html
-<!-- View stored in resources/views/articles.blade.php -->
+<!-- vista almacenada en resources/views/articles.blade.php -->
 <html>
     <body>
         <h1>Let's read some articles!</h1>
@@ -257,8 +260,8 @@ Views contain the HTML served by our application and are stored in the `resource
 </html>
 ```
 
-#### How to return a view
-Views can be returned to the user using the global `view()` helper:
+#### Devolver una vista
+Cargar y devolver una vista al usuario es tan sencillo como utilizar la función global (helper) `view()`:
 
 ```php
 Route::get('/articles', function () {
@@ -266,11 +269,12 @@ Route::get('/articles', function () {
 });
 ```
 
-#### Accessing data from the view
+#### Acceder a datos desde la vista
 
-Laravel uses the [Blade](https://laravel.com/docs/6.x/blade) templating engine by default.
+Laravel utiliza el motor de plantillas [Blade](https://laravel.com/docs/6.x/blade) por defecto.
 
-Echoing Data in Blade is really easy:
+Mostrar datos almacenados en variables es muy sencillo:
+
 ```html
 <html>
     <body>
@@ -280,7 +284,7 @@ Echoing Data in Blade is really easy:
 </html>
 ```
 
-It is also possible to make a loop and iterate an array of data. Let's modify the previous view in order to return a real list of articles.
+También es posible iterar por los datos de una colección o array. El siguiente ejemplo muestra como iterar por un array de strings de forma rápida:
 
 ```html
 <!-- View stored in resources/views/articles.blade.php -->
@@ -297,7 +301,7 @@ It is also possible to make a loop and iterate an array of data. Let's modify th
 </html>
 ```
 
-All the data needed by the view must be provided within the view helper call:
+Para que la vista pueda acceder a los datos, es necesario proporcionárselos en la llamada al método `view()`:
 
 ```php
 Route::get('/articles', function () {
@@ -308,9 +312,10 @@ Route::get('/articles', function () {
     ]);
 });
 ```
-The data must be an array with key / value pairs.
 
-Blade is a powerful templating engine that allows all kind of structures:
+Los datos se le pasarán como un array de tipo clave-valor.
+
+Blade es un potente motor de plantillas que permite el uso de todo tipo de estructuras:
 
 ```html
 @for ($i = 0; $i < 10; $i++)
@@ -344,22 +349,22 @@ Blade is a powerful templating engine that allows all kind of structures:
 @endunless
 ```
 
-You can find all you need about Blade in the [official documentation](https://laravel.com/docs/6.x/blade).
+Puedes encontrar toda la información acerca de Blade en la [documentación oficial](https://laravel.com/docs/6.x/blade).
 
 
-### Step 5 - Create a Controller
-Controllers contain the logic for handling incoming requests. In other words, a Controller is a class that groups the behaviour of requests related to an entity. For example, a ArticleController will be in charge of handling action like: create an article, edit an article, find articles and so on.
+### Paso 5 - Crear un Controlador
+Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticleController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
 
-#### Create a Controller
-There are 2 ways of creating a Controller:
-- Create manually a class which extends the Laravel Controller class inside `app/Http/Controllers` directory.
-- Use the `make:controller` Artisan command.
+#### Creando un Controller
+Existen dos formas de crear un controlador:
+- Crear manualmente una clase que extienda de la clase Controller de Laravel dentro del directorio `app/Http/Controllers`.
+- Utilizar el comando de Artisan `make:controller`. Artisan es una herramienta que nos provee Laravel para interactuar con la aplicación y ejecutar instrucciones.
 
-In this case we will choose the second option and run the following command:
+En este caso escogeremos la segunda opción y ejecutaremos el siguiente comando:
 ```
 php artisan make:controller ArticleController
 ```
-And Laravel will create the controller automatically for us.
+De este modo Laravel creará automáticamente el controlador:.
 
 ```php
 <?php
@@ -383,11 +388,10 @@ class ArticleController extends Controller
     }
 }
 ```
-Adding `--resource` to the previous command will order Artisan to add to the Controller the most common seven methods: `index()`, `create()`, `store()`, `show()`, `edit()`, `update()`, `destroy()`.
+Añadiendo `--resource` al comando anterior, Artisan añadirá al controlador creado los siete métodos más comunes: `index()`, `create()`, `store()`, `show()`, `edit()`, `update()`, `destroy()`.
 
-#### Rounting the Controller
-
-The next step is to add in the Router the Controller's methods.
+#### Enrutar el Controlador
+El siguiente paso es añadir al Router la llamada a los métodos del Controlador.
 
 ```php
 Route::get('articles/', 'ArticleController@index');
@@ -395,46 +399,46 @@ Route::get('articles/{id}', 'ArticleController@show');
 Route::get('articles/{id}/create', 'ArticleController@create');
 Route::post('articles/', 'ArticleController@store');
 ```
-This will address the requests to the methods implemented in the Controller.
+De esta forma direccionaremos las peticiones a los métodos de los controladores.
 
 
-### Step 6 - Set up the database
+### Paso 6 - Configurar la base de datos
 
-It is hard to imagine a web application that doesn't make use of a Database to manage the information within it.
+Es muy difícil de imaginar una aplicación web que no haga uso de una base de datos para almacenar la información. A continuación veremos como preparar la base de datos para nuestra aplicación.
 
-#### Database configuration
+#### Configuración de la base de datos
 
-Laravel `.env` file contains environment configurations such as the database configuration. Open the `.env` file and set database credentials as bellow:
+El fichero `.env` de Laravel contiene la configuración relacionada con la aplicación y el entorno, como por ejemplo la configuración de la base de datos. Abre el fichero `.env` con un editor y modifica las siguientes credenciales de la base de datos:
 
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=here your database name(newspaper)
+DB_DATABASE=here your database name(articulos)
 DB_USERNAME=here database username(root)
 DB_PASSWORD=here database password(root)
 ```
-All these configuration variables will be referenced from the `database.php` configuration file.
+Todas estas variables de configuración serán referenciadas desde el archivo de configuración `database.php`.
 
-#### Database creation
+#### Creación de la base de datos
 
-Sign in into MySQL using the root user:
+Accede al cliente de MySQL como root:
 ```
 mysql -u root
 ```
 
-Create the database if it is not created:
+Crea la base de datos si no está creada:
 ```
-CREATE DATABASE newspaper;
+CREATE DATABASE articulos;
 ```
 
-### Step 7 - Create Migration
-Migrations are used to build application's database schema. Run the following Artisan command in order to create a migration for "articles" table. 
+### Step 7 - Crear la Migración (Migration)
+Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articles". 
 
 ```
 php artisan make:migration create_articles_table --create=articles
 ```
-Laravel will create a new migration placed in `database/migrations` directory.
+Laravel creará una nueva migración automáticamente en el directorio `database/migrations`.
 
 ```php
 <?php
@@ -631,296 +635,8 @@ php artisan make:model Article -mcr
 
 ### Practice: Creating a Newspaper App
 Create a Laravel app that shows a article list from de Database.
-#### Solution
-1. Create a new project named laravel-article list.
-2. Create a Model with its corresponding Controller and Migration.
-```
-php artisan make:model Article -mcr
-```
-3. Define the article model attributes modifying the migration.
-```php
-<?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
-  
-class CreateArticlesTable extends Migration
 
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->text('body');
-            $table->timestamp('publish_date')->useCurrent();
-            $table->timestamps();
-        });
-    }
-
-  
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('articles');
-    }
-}
-```
-
-4. Run the migration:
-```
-php artisan migrate
-```
-
-5. Edit the `routes/web.php` file and add the route to the router:
-```php
-Route::get('/', 'ArticleController@index');
-```
-
-6. Implement the `index()` method of the Controller:
-
-```php
-public function index()
-{
-    $articles = Article::all();
-    return view('articles', [
-        'articles' => $articles
-    ]);
-}
-```
-
-7. Create the `articles` view:
-
-```html
-<!-- View stored in resources/views/articles.blade.php -->
-<html>
-    <body>
-        <h1>These are our articles:</h1>
-        <ul>
-            @foreach ($articles as $article)
-                <li>{{ $articles->title }} ({{ $articles->id }})</li>
-            @endforeach
-        </ul>
-    </body>
-</html>
-```
-8. Populate the database: edit the DatabaseSeeder class and launching the `php artisan db:seed` command.
-
-```php
-<?php
-
-use Illuminate\Support\Str;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $faker = Faker\Factory::create();
-
-        for($i=0;$i<10;$i++){
-            DB::table('articles')->insert([
-                'title' => $faker->realText(50,2),
-                'body' => $faker->realText(400,2)
-            ]);
-        }
-    }
-}
-```
-7. Create the `articles` view:
-
-```html
-<!-- View stored in resources/views/show.blade.php -->
-<html>
-    <body>
-        <h1>Article detail:</h1>
-        <ul>
-            <li>Title: {{ $article->title }}</li>
-            <li>Body: {{ $article->body }}</li>
-        </ul>
-    </body>
-</html>
-```
-9. Open the app in the browser!
-
-### Hands on: Creating a Newspaper App
-Add to the previous app a new view that shows the detail of a article.
-
-1. Add the new route in the `routes/web.php` file:
-```php
-Route::get('/{id}', 'ArticleController@show');
-```
-
-2. Implement the `show()` method of the Controller:
-
-```php
-public function show($id)
-{
-    $articles = Article::find($id);
-    return view('show', [
-        'article' => $article
-    ]);
-}
-```
-## Intermediate Laravel
-
-### Delete requests
-
-### Forms
-HTML forms are the traditional way to collect data from users and send it to the application. 
-
-We will need to create 2 routes in order to add a form to our application: one for displaying the form to the user and another one to handle the response.
-
-```php
-Route::get('articles/create', 'ArticleController@create');
-Route::post('articles/', 'ArticleController@store');
-```
-In the same way we created two routes, we will also add two methods to the controller:
-
-```php
-class PostController extends Controller
-{
-    /**
-     * Show the form to create a new blog post.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('create');
-    }
-
-    /**
-     * Store a new blog post.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        // Validate the Article
-        
-        // Create the article
-        $prodcut = new Article();
-        
-        $article->title = request('title');
-        $article->body = request('body');
-        
-        $article->save();
-        
-        return redirect('/articles');
-    }
-}
-```
-
-The last step will be to create a traditional form will that be used to collect the information about the model.
-
-```html
-<!-- View stored in resources/views/create.blade.php -->
-<html>
-    <body>
-        <h1>Let's write a new article:</h1>
-        <form action="/articles/create" method="POST">
-            <div>
-                <label for="title">Name:</label>
-                <input type="text" id="title" name="title">
-            </div>
-            <div>
-              <label for="body">Text:</label>
-              <textarea id="body" name="body"></textarea>
-            </div>
-            <div>
-              <input type="submit" value="Submit">
-            </div>
-        </form>
-    </body>
-</html>
-```
-
-### Building layouts
-There is always some piece of code that is being repeated in every view. We are talking about the <head> of the view and other parts of the body such as a header, navigation menu or footer. Blade layouts make it possible to share common html markup and assets across multiple views. We idea is to separate into a different file the part of the view that is common and specify same container in the view that must be filled with specific content.
-	
-Let's start creating a layout:
-
-```html
-<html>
-    <head>
-        <title>App Name - @yield('title')</title>
-    </head>
-    <body>
-        <div class="container">
-            @yield('content')
-        </div>
-    	<div class="big-footer">
-            @yield('footer')
-        </div>
-    </body>
-</html>
-```
-
-The @yield directive is used to specify the place where the contents of a given section will be displayed.
-
-Now we'll build a unique view that extends from the previus layout. Extending a view means that the parent will be used and overriden with the content we specify in the child:
-
-```html
-@extends('layouts.master')
-
-@section('title', 'Page Title')
-
-@section('content')
-    <h1>Hello World!</h1>
-    <p>This is my body content.</p>
-@endsection
-
-@section('footer')
-    <p>Built by @JonVadillo.</p>
-@endsection
-
-```
-
-@section indicates the section of the parent layout that will be filled with the content.
-
-### Add bootstrap to Laravel
-TODO
-
-### Eloquest relationships
-TODO
-
-### Sessions and flash messaging
-TODO
-
-### Laravel take and paginate
-TODO
-
-## Advanced Laravel
-TODO
-
-### Authentication
-TODO
-
-### User notifications
-TODO
-
-### The front-end in Laravel
-TODO
-
-## References
-* [Laravel docs](https://laravel.com/docs/5.5) - Laravel Documentation
+## Referencias
+* [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
 
