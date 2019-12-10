@@ -432,7 +432,7 @@ Crea la base de datos si no está creada:
 CREATE DATABASE articulos;
 ```
 
-### Step 7 - Crear la Migración (Migration)
+### Paso 7 - Crear la Migración (Migration)
 Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articles". 
 
 ```
@@ -479,29 +479,31 @@ class CreateArticlesTable extends Migration
 }
 ```
 
-As you can see in the code above, a migration contains 2 methods:
-- `up()`: used to add new tables, columns, or indexes to the database
-- `down()`: used to reverse the operations defined in the `up()` method.
+Tal y como puedes deducir del código anterior, una migración contiene 2 métodos:
+- `up()`: se utiliza para crear nuevas tablas, columnas o índices a la base de datos.
+- `down()`: se utiliza para revertir operaciones realizadas por el método `up()`.
 
-There is a wide variety of column types available in order to define tables.
+Existen una gran variedad de tipos de columnas disponibles para definir las tablas. Puedes encontrarlas en la [documentación oficial](https://laravel.com/docs/4.2/schema#adding-columns).
 
-To run the migrations execute the `migrate` Artisan command:
+Para ejecutar las migraciones simplemente ejecuta el comando `migrate` de Artisan:
 ```
 php artisan migrate
 ```
 
-### Step 8 - Create a Model
-Laravel includes Eloquent ORM, which makes the database interaction really easy. As the official documentation says, with Eloquent:
+### Paso 8 - Crear un Modelo
+Laravel incluye por defecto Eloquent ORM, el cual hace de la interacción con la base de datos una tarea fácil.Tal y como dice la documentación oficial:
 
 >Each database table has a corresponding "Model" which is used to interact with that table. Models allow you to query for data in your tables, as well as insert new records into the table.
 
-#### Creating a Model
-Let's create a Model:
+En otras palabras, cada tabla de la base de datos corresponde a un Modelo, el cual permite ejecutar operaciones sobre esa tabla (insertar o leer registros por ejemplo).
+
+#### Creando un Modelo
+Vamos a crear un Modelo:
 ```
 php artisan make:model Article
 ```
 
-The previous command creates an Article in the `app` directory (the default directory for Eloquent Models).
+El comando anterior ha creado una clase llamada Article en el directorio `app` (es el directorio por defecto para los modelos de Eloquent).
 
 ```php
 <?php
@@ -516,38 +518,38 @@ class Article extends Model
 }
 ```
 
-By default an Eloquent Model will store records in the table with the Model name in plural. In this case, `Article` will interact with 'articles' table.
+Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Article` interactuará con la tabla llamada 'articles'.
 
-#### Retrieving data from the Database
-Eloquent Models will be used to query the database tables associated with them. They provide methods like the followings:
+#### Recuperando datos de la base de datos
+Los modelos de Eloquent se utilizan para recuperar información de las tablas relacionadas con el modelo. Proporcionan métodos como los siguientes:
 
 ```php
 
-// Retrieve all models
+// Recupera todos los modelos
 $articles = App\Article::all();
 
-// Retrieve a model by its primary key
+// Recupera un modelo a partir de su clave
 $article = App\Article::find(1);
 
-// Retrieve the first model matching the query constraints
+// Recupera el primer modelo que cumpla con los criterios indicados
 $article = App\Article::where('active', 1)->first();
 
-// Retrieve models matching the query constraints
+// Recupera los modelos que cumplan con los criterios indicados y de la forma indicada:
 $articles = App\Article::where('active', 1)
                ->orderBy('title', 'desc')
                ->take(10)
                ->get();
 
-// Loop over the collection like an array:
+// Iterar sobre los resultados:
 foreach ($articles as $article) {
     echo $articles->title;
 }
 
 ```
 
-#### Inserting, Updating and Deleting models
+#### Insertar, actualizar y borrar modelos
 
-The following Controller contains the all the logic for inserting, updating and deleting models:
+El siguiente controlador contiene toda la lógica para insertar, actualizar y borrar modelos:
 
 ```php
 <?php
@@ -569,7 +571,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request...
+        // Validar la petición...
 
         $article = new Article;
 
@@ -598,43 +600,43 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        // Find article by id and delete it
+        // Encuentra el artículo por ID y lo elimina
         $article = App\Article::find(1);
         $article->delete();
         
-        // Alternative
+        // Alternativa
         App\Article::destroy(1);
         
-        //Deleting Models By Query (deletes all the matching elements)
+        //Borrar modelos por consulta (borra todos los que encuentre en la consulta)
         Article::where('id',$id)->delete();        
     }
      
 }
 ```
 
-Laravel provides alternative methods for doing more complex operations like mass creations or creaing only if the model doesn't exist:
+Laravel proporciona alternativas para realizar operaciones más complejas, como creaciones en "masa" o crear un modelo solo si no existe:
 
 ```php
 // Retrieve flight by name, or create it if it doesn't exist...
 $article = App\Article::firstOrCreate(['name' => 'Laptop']);
 ```
 
-You can find all the possibilities explained in the official documentation.
+Puedes encontrar todas las posibilidades en la [documentación oficial](https://laravel.com/docs/6.x/eloquent).
 
-### Bonus - Artisan flags
-There are useful flags to generate related files to the model. The following example creates a model, migration and controller using only one command:
+### Bonus - Opciones (flags) de Artisan
+Existen opciones muy útiles para generar archivos relacionados con los modelos. El siguiente ejemplo crea un modelo junto con su controlador y migración utilizando un único comando:
 
 ```
 php artisan make:model Article -mcr
 ```
-- -m will create a migration file
-- -c will create a controller
- -r will indicate that controller should be resourceful
+- -m indica la creación de una migración
+- -c indica la creación de un controlador
+ -r indica que el controlador creado será "resourceful" (incializado con los métodos).
 
 
 
-### Practice: Creating a Newspaper App
-Create a Laravel app that shows a article list from de Database.
+### Práctica 1: Crea la aplicación Periodico-App
+Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
 
 
 ## Referencias
