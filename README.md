@@ -633,8 +633,154 @@ php artisan make:model Article -mcr
 
 
 
-### Práctica 1: Crea la aplicación RevistApp
+### Práctica 1: Aplicación RevistApp: mostrar listado de artículos
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
+
+### Práctica 2: Aplicación RevistApp: mostrar listado de artículos
+Añade a la aplicación anterior una nueva vista que muestre el detalle de un artículo. Se accederá desde la vista del listado de artículos.
+
+### Práctica 3: Aplicación RevistApp: borrar artículos
+Añade la posibilidad de eliminar artículos.
+
+## Level up: Laravel nivel intermedio
+
+### Borrado de registros
+El borrado de registros es un tema que suele traer complicaciones, debido a que desde una página HTML solo es posible enviar peticiones `GET` y `POST` (desde formularios). Por lo tanto, las alternativas son las siguientes:
+- Crear una ruta GET específica para el borrado. Por ejemplo: `/removeArticle/{id}`
+- Hacer la petición utilizando AJAx y especificando en la llamada el tipo de método: `'type': 'DELETE'`
+- Emular la llamada `DELETE` mediante el campo oculto `_method`. Para ello podemos utilizar los helpers o directivas de Laravel en un formulario para notificar que se trata de una petición de tipo `DELETE`:
+
+```php	
+<form method="POST">
+    {{ csrf_field()}}
+    {{ method_field("DELETE")}}
+    <!--  ...  -->
+</form>
+```
+A partir de Laravel 5.6, se pueden utilizar las siguientes directivas de Blade:
+
+```php	
+<form method="POST">
+     @csrf
+     @method("DELETE")
+     <!-- ... -->
+</form>
+```
+
+
+### Formularios
+Los formularios HTML son la forma más habitual de recoger datos introducidos por los usuarios y enviarlos a la aplicación.
+
+Para este cometido necesitaremos crear dos nuevas rutas en nuestro Router: una para mostrar al usuario el formulario de recogida de datos y otra para recibir y tratar los datos introducidos por el usuario.
+
+```php
+Route::get('articles/create', 'ArticleController@create');
+Route::post('articles/', 'ArticleController@store');
+```
+De igual forma que hemos necesitado dos nuevas rutas, también necesitaremos dos nuevos métodos en nuestro Controller:
+
+```php
+class ArticleController extends Controller
+{
+    /**
+     * Show the form to create a new article.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('create');
+    }
+
+    /**
+     * Store a new article.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        // Validate the Article
+        
+        // Create the article
+        $prodcut = new Article();
+        
+        $article->title = request('title');
+        $article->body = request('body');
+        
+        $article->save();
+        
+        return redirect('/articles');
+    }
+}
+```
+
+El último paso es crear la vista que contenga el formulario HTML y que será mostrada al usuario al invocar el método `create()` del controlador:
+
+```html
+<!-- View stored in resources/views/create.blade.php -->
+<html>
+    <body>
+        <h1>Let's write a new article:</h1>
+        <form action="/articles/create" method="POST">
+            <div>
+                <label for="title">Name:</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div>
+              <label for="body">Text:</label>
+              <textarea id="body" name="body"></textarea>
+            </div>
+            <div>
+              <input type="submit" value="Submit">
+            </div>
+        </form>
+    </body>
+</html>
+```
+
+### Construir layouts
+Las aplicaciones siempre contienen varias parte de la interfaz que son comunes en todas las páginas (la cabecera, menú de navegación, footer, etc.). Blade permite el uso de Layouts, los cuales permiten de forma muy sencilla compartir entre distintas vistas las partes que tienen en común y así evitar repetir lo mismo múltiples veces. La idea consiste en separar en un archivo distinto la parte común de nuestras vistas y especificar en ella las zonas que albergarán los contenidos específicos de cada vista (lo que no es común).
+	
+Empecemos por definir un layout básico:
+
+```html
+<html>
+    <head>
+        <title>App Name - @yield('title')</title>
+    </head>
+    <body>
+        <div class="container">
+            @yield('content')
+        </div>
+    	<div class="big-footer">
+            @yield('footer')
+        </div>
+    </body>
+</html>
+```
+
+La directiva @yield se utiliza para especificar el lugar donde se mostrarán los contenidos de cada sección.
+
+Ahora crearemos la vista concreta que especificará el contenido a introducir en el layout. Es por esto que decimos que la vista extiende (extends) del layout, es decir, la vista heredará toda la estructura definida en el layout y sobreescribirá las partes concretas que defina (las secciones).
+
+```html
+@extends('layouts.master')
+
+@section('title', 'Page Title')
+
+@section('content')
+    <h1>Hello World!</h1>
+    <p>This is my body content.</p>
+@endsection
+
+@section('footer')
+    <p>Built by @JonVadillo.</p>
+@endsection
+
+```
+
+@section indica la sección del padre donde será introducido el contenido especificado entre las etiquetas @section y @endsection.
 
 
 ## Referencias
