@@ -502,6 +502,8 @@ Para que los cambios surjan efecto ejecuta lo siguiente:
 FLUSH PRIVILEGES;
 ```
 
+No olvides actualizar los datos de acceso a base de datos en el fichero de configuración `.env`.
+
 ### Paso 8 - Crear un Modelo
 Laravel incluye por defecto Eloquent ORM, el cual hace de la interacción con la base de datos una tarea fácil.Tal y como dice la documentación oficial:
 
