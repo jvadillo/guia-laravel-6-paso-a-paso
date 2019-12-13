@@ -487,6 +487,20 @@ Para ejecutar las migraciones simplemente ejecuta el comando `migrate` de Artisa
 ```
 php artisan migrate
 ```
+#### Crear usuario de base de datos
+Es recomendable utilizar un usuario de base de datos diferente a `root`. Para ello, desde MySQL ejecuta lo siguiente:
+
+```sql
+CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
+```
+El comando anterior crea el usuario con la contraseña indicada. El siguiente paso es otorgar permisos al usuario:
+```sql
+GRANT ALL PRIVILEGES ON * . * TO 'nombre_usuario'@'localhost';
+```
+Para que los cambios surjan efecto ejecuta lo siguiente:
+```sql
+FLUSH PRIVILEGES;
+```
 
 ### Paso 8 - Crear un Modelo
 Laravel incluye por defecto Eloquent ORM, el cual hace de la interacción con la base de datos una tarea fácil.Tal y como dice la documentación oficial:
