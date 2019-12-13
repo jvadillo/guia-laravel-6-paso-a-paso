@@ -41,7 +41,7 @@ Es importante conocer bien los actores principales del ecosistema Laravel:
 - Vistas (Views): contienen el código HTML y separan la presentación de la lógica de la aplicación (controlador).
 - Modelos (Models): se utilizan para interactuar con la base de datos y aplicar la lógica de negocio.
 
-![Laravel diagram](https://upload.wikimedia.org/wikipedia/commons/9/94/%E0%A6%B2%E0%A6%BE%E0%A6%B0%E0%A6%BE%E0%A6%AD%E0%A7%87%E0%A6%B2_%E0%A6%86%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A6%BF%E0%A6%9F%E0%A7%87%E0%A6%95%E0%A6%9A%E0%A6%BE%E0%A6%B0_.jpg)
+![Laravel diagram](https://raw.githubusercontent.com/jvadillo/guia-laravel-paso-a-paso/master/laravel.jpg)
 
 
 ### Preparar el entorno de desarrollo
