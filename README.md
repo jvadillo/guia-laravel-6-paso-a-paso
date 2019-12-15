@@ -936,6 +936,38 @@ npm run dev
 ```
 El método `asset()` generará una URL a nuestros recursos en la carpeta `public/`. Si cambiamos la ubicación de nuestros recursos lo tendremos que especificar en la variable `ASSET_URL` del fichero `.env`.
 
+### Relaciones One-to-Many
+//TODO
+
+#### Consejo: añadir columnas a modelo existente
+Lo recomendable para añadir columnas a una tabla es crear una nueva migración y ejecutar el comando `php artisan migrate` para lanzar los cambios. Normalmente se incluyen los cambios en el propio nombre de la migración, por ejemplo:
+
+```bash
+php artisan migrate:make add_category_to_articles --table="articles"
+```
+
+```php
+public function up()
+{
+    Schema::table('articles', function($table)
+    {
+        $table->string('category');
+    });
+    }
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+	    Schema::table('articles', function ($table) {
+		$table->dropColumn('category');
+	    });
+    }
+}
+```
+
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
 
