@@ -644,6 +644,52 @@ $article = App\Article::firstOrCreate(['name' => 'Laptop']);
 
 Puedes encontrar todas las posibilidades en la [documentación oficial](https://laravel.com/docs/6.x/eloquent).
 
+#### Tinker: un potente REPL para Laravel
+Tinker es un potente [REPL](https://es.wikipedia.org/wiki/REPL) o consola interactiva que viene por defecto en Laravel. Resulta muy útil durante el desarrollo ya que permite interactuar con nuestra aplicación Laravel y probar cantidad de cosas: eventos, acceso a datos, etc.
+Para iniciar Tinker hay que ejecutar el siguiente comando:
+```
+php artisan tinker
+```
+A partir de ese momento se puede comenzar a interactuar con nuestra aplicación, como muestra el ejemplo a continuación:
+```bash
+>>> $article = new App\Article
+=> App\Article {#3014}
+>>> $article->title="AA";
+=> "AA"
+>>> $article->body="BBBB";
+=> "BBBB"
+>>> $article
+=> App\Article {#3014
+     title: "Articulo numero 2",
+     body: "Lorem ipsum...",
+   }
+>>> $article->save();
+>>> \App\Article::count();
+=> 2
+>>> $articles = App\Article::all();
+=> Illuminate\Database\Eloquent\Collection {#3035
+     all: [
+       App\Article {#3036
+         id: 1,
+         title: "Articulo numero 1",
+         body: "Lorem ipsum...",
+         created_at: null,
+         updated_at: null,
+       },
+       App\Article {#3046
+         id: 2,
+         title: "Articulo numero 2",
+         body: "Lorem ipsum...",
+         created_at: "2019-12-15 15:32:04",
+         updated_at: "2019-12-15 15:32:04",
+       },
+     ],
+   }
+
+```
+Para salir se ejecuta el comando `exit`.
+
+
 ### Bonus - Opciones (flags) de Artisan
 Existen opciones muy útiles para generar archivos relacionados con los modelos. El siguiente ejemplo crea un modelo junto con su controlador y migración utilizando un único comando:
 
