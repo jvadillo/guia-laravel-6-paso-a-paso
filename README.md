@@ -207,6 +207,13 @@ El código anterior muestra cómo se define una ruta básica. En este caso, cuan
 
 Aparte de ejecutar las acciones definidas para cada ruta, Laravel ejecutará middlewere específico en función del Router utilizado (por ejemplo, el middlewere relacionado con las peticiones web proveerá de funcionalidades como el estado de la sesión o la protección (CSRF)[https://es.wikipedia.org/wiki/Cross-site_request_forgery]).
 
+#### Ver rutas creadas
+Artisan incluye un comando para mostrar todas las rutas de una aplicación de forma rápida. Basta con ejecutar el siguiente comando en la consola:
+
+```
+php artisan route:list
+```
+
 #### Devolver un JSON
 También es posible devolver un JSON. Laravel convertirá automáticamente un array a JSON:
 
