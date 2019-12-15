@@ -982,8 +982,33 @@ En el ejemplo anterior, la variable `$user_articles` contiene una colección de 
 #### Foreign keys
 Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'\_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
 
-#### Consejo: añadir columnas a modelo existente
-Lo recomendable para añadir columnas a una tabla es crear una nueva migración y ejecutar el comando `php artisan migrate` para lanzar los cambios. Normalmente se incluyen los cambios en el propio nombre de la migración, por ejemplo:
+```php
+    public function up()
+    {
+        Schema::create('articles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('title');
+            $table->text('body');
+            $table->timestamps();
+        });
+    }
+}
+```
+
+#### Consejo: cómo añadir columnas a modelo existente
+Existen dos escenarios posibles en los cuales queremos realizar cambios sobre modelos existentes:
+- Estamos desarrollando una nueva aplicación y no nos importa borrar los datos existentes.
+- Tenemos una aplicación en uso y queremos añadir columnas sin perder ningún registro.
+
+En el primer caso, es suficiente con modificar la migración de la tabla correspondiente y ejecutar el comando:
+
+```bash
+php artisan migrate:fresh
+```
+Este comando eliminará todas las tablas de la base de datos y volverá a crearlas desde cero.
+
+Para el segundo caso (modificar una tabla sin perder datos), lo recomendable es crear una nueva migración y ejecutar el comando `php artisan migrate` para lanzar los cambios. Normalmente se incluyen los cambios en el propio nombre de la migración, por ejemplo:
 
 ```bash
 php artisan migrate:make add_category_to_articles --table="articles"
@@ -1013,6 +1038,7 @@ public function up()
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
+* [Laracats](https://laracasts.com) - Laravel screencasts
 
 ## Licencia
 
