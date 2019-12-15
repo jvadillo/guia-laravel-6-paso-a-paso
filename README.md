@@ -944,7 +944,7 @@ Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos 
 class User extends Model
 {
     /**
-     * Get the phone record associated with the user.
+     * Get the articles records associated with the user.
      */
     public function articles()
     {
@@ -957,7 +957,7 @@ class User extends Model
 class Article extends Model
 {
     /**
-     * Get the phone record associated with the user.
+     * Get the user record associated with the article.
      */
     public function user()
     {
