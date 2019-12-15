@@ -803,8 +803,38 @@ Ahora crearemos la vista concreta que especificará el contenido a introducir en
 
 ```
 
-@section indica la sección del padre donde será introducido el contenido especificado entre las etiquetas @section y @endsection.
+`@section` indica la sección del padre donde será introducido el contenido especificado entre las etiquetas `@section` y `@endsection`.
 
+
+### Asignar nombres a las rutas
+Una práctica muy habitual es asignar nombres a las rutas, lo cual es realmente sencillo:
+
+```php
+Route::get('articles/', 'ArticleController@index')->name('articles.index');
+Route::get('articles/create', 'ArticleController@index')->name('articles.create');
+Route::get('articles/{id}', 'ArticleController@show')->name('articles.show');
+```
+Como se puede deducir del ejemplo anterior, utlizamos el método `name()` para definir el nombre que queremos establecer para cada ruta.
+De este modo, podremos cargar las rutas utilizando el método global `route()`:
+```php
+// Generar una url
+$url = route('articles.index');
+
+// Redireccionando a una ruta:
+return redirect()->route('articles.show');
+```
+
+En ocasiones necesitaremos indicar al método route los parámetros que necesitará insertar:
+```php
+Route::get('articles/{id}', function ($id) {
+    //
+})->name('articles.show');
+
+$url = route('articles.show', ['id' => 12);
+// /articles/12
+```
+
+Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
