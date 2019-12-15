@@ -882,6 +882,51 @@ $url = route('articles.show', ['id' => 12);
 
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
+### Añadir Bootstrap a tu proyecto
+A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos que instalarlo nosotros siguiendo los siguientes pasos:
+
+#### 1. Instalar el paquete Laravel/UI mediante composer.
+```bash
+composer require laravel/ui
+```
+
+#### 2. Añadir bootstrap a nuestro proyecto
+```bash
+php artisan ui bootstrap
+```
+
+#### 3. Instalar las dependencias
+```bash
+npm install
+```
+En ocasiones puede haber problemas si la máquina virtual se ejecuta en un host con Windows 10, por lo que en ese caso lanzar:
+
+```bash
+npm install --no-bin-links
+```
+#### 4. Compilar el código JS y CSS mediante Webpack:
+```bash
+npm run dev
+```
+
+#### 5. Incluir los ficheros generados (`public/js/app.js` y `public/css/app.css`) en nuestras vistas, utilizando el método helper `asset()`:
+```html
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mi aplicación</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Bienvenido a mi app</h1>
+    <div class="content">
+        @yield('content')
+    </div>
+    <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+</body>
+</html>
+```
+
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
 
