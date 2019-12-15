@@ -883,7 +883,13 @@ $url = route('articles.show', ['id' => 12);
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
 ### Añadir Bootstrap a tu proyecto
-A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos que instalarlo nosotros siguiendo los siguientes pasos:
+A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos 3 opciones para utilizar Bootstrap:
+a) Referenciar las dependecias JS y CSS utilizando BootstrapCDN (enlaces disponibles en la [documentación oficial](https://getbootstrap.com/docs/4.4/getting-started/introduction/))
+que instalarlo nosotros siguiendo los siguientes pasos:
+b) Descargar las dependecias ([enlace](https://getbootstrap.com/docs/4.4/getting-started/download/)) e incluirlas manualmente en las carpetas `/public/css` y `/public/js`.
+c) Utilizar Laravel Mix para compilar nuestros archivos JS y CSS.
+
+A continuación describiremos los pasos a seguir para incluir Bootstrap mediante la última opción descrita.
 
 #### 1. Instalar el paquete Laravel/UI mediante composer.
 ```bash
@@ -926,6 +932,7 @@ npm run dev
 </body>
 </html>
 ```
+El método `asset()` generará una URL a nuestros recursos en la carpeta `public/`. Si cambiamos la ubicación de nuestros recursos lo tendremos que especificar en la variable `ASSET_URL` del fichero `.env`.
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
