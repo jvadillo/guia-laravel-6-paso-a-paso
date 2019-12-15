@@ -937,7 +937,50 @@ npm run dev
 El método `asset()` generará una URL a nuestros recursos en la carpeta `public/`. Si cambiamos la ubicación de nuestros recursos lo tendremos que especificar en la variable `ASSET_URL` del fichero `.env`.
 
 ### Relaciones One-to-Many
-//TODO
+#### Definir una relación
+Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos dos entidades, `User` y `Article`. Podríamos decir que un `User` tiene ('has') varios `Article` o que un `Article` pertenece a ('belongs to') un `User`. Por lo tanto, podemos definir la relación en cualquiera de los dos modelos, incluso en los dos.
+
+```php
+class User extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function articles()
+    {
+        return $this->hasMany('App\Article');
+    }
+}
+```
+
+```php
+class Article extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+}
+```
+#### Accedeo a los modelos de una relación
+El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articles` o `$article->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
+
+```php
+$user = App\User::find(1); // Ejecuta la sentencia: select * from users where id = 1
+
+$user_articles = $user->articles; // Ejecutara la sentencia: select * from articles where user_id = 1
+
+foreach ($user_articles as $article) {
+    //
+}
+```
+En el ejemplo anterior, la variable `$user_articles` contiene una colección de objetos de la clase `Article`. 
+
+#### Foreign keys
+Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'\_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
 
 #### Consejo: añadir columnas a modelo existente
 Lo recomendable para añadir columnas a una tabla es crear una nueva migración y ejecutar el comando `php artisan migrate` para lanzar los cambios. Normalmente se incluyen los cambios en el propio nombre de la migración, por ejemplo:
