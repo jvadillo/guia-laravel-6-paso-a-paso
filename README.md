@@ -717,7 +717,7 @@ php artisan make:model Article -mcr
 ### Práctica 1
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
 
-### Práctica 2: Aplicación RevistApp: mostrar listado de artículos
+### Práctica 2
 Añade a la aplicación anterior una nueva vista que muestre el detalle de un artículo. Se accederá desde la vista del listado de artículos.
 
 ## Level up: Laravel nivel intermedio
@@ -745,7 +745,7 @@ A partir de Laravel 5.6, se pueden utilizar las siguientes directivas de Blade:
 </form>
 ```
 
-### Práctica 3: Aplicación RevistApp: borrar artículos
+### Práctica 3
 Añade la posibilidad de eliminar artículos mediante un enlace o botón en cada uno de los registros mostrados.
 
 ### Formularios
