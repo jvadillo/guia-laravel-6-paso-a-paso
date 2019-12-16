@@ -18,7 +18,7 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Paso 7 - Crear la Migración (Migration)](#paso-7---crear-la-migraci-n--migration-)
   * [Paso 8 - Crear un Modelo](#paso-8---crear-un-modelo)
   * [Bonus - Opciones (flags) de Artisan](#bonus---opciones--flags--de-artisan)
-  * [Práctica 1: Aplicación RevistApp: mostrar listado de artículos](#práctica-1--aplicación-revistapp--mostrar-listado-de-artículos)
+  * [Práctica 1](#práctica-1)
   * [Práctica 2: Aplicación RevistApp: mostrar listado de artículos](#práctica-2--aplicación-revistapp--mostrar-listado-de-artículos)
   * [Práctica 3: Aplicación RevistApp: borrar artículos](#pr-ctica-3--aplicaci-n-revistapp--borrar-art-culos)
 - [Level up: Laravel nivel intermedio](#level-up--laravel-nivel-intermedio)
@@ -711,7 +711,7 @@ php artisan make:model Article -mcr
 
 
 
-### Práctica 1: Aplicación RevistApp: mostrar listado de artículos
+### Práctica 1
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
 
 ### Práctica 2: Aplicación RevistApp: mostrar listado de artículos
