@@ -717,9 +717,6 @@ Crea una aplicación Laravel que muestre un listado de artículos de la base de 
 ### Práctica 2: Aplicación RevistApp: mostrar listado de artículos
 Añade a la aplicación anterior una nueva vista que muestre el detalle de un artículo. Se accederá desde la vista del listado de artículos.
 
-### Práctica 3: Aplicación RevistApp: borrar artículos
-Añade la posibilidad de eliminar artículos.
-
 ## Level up: Laravel nivel intermedio
 
 ### Borrado de registros
@@ -745,6 +742,8 @@ A partir de Laravel 5.6, se pueden utilizar las siguientes directivas de Blade:
 </form>
 ```
 
+### Práctica 3: Aplicación RevistApp: borrar artículos
+Añade la posibilidad de eliminar artículos mediante un enlace o botón en cada uno de los registros mostrados.
 
 ### Formularios
 Los formularios HTML son la forma más habitual de recoger datos introducidos por los usuarios y enviarlos a la aplicación.
@@ -817,6 +816,9 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
 </html>
 ```
 
+### Práctica 4: Aplicación RevistApp: añadir nuevos artículos
+Añade la posibilidad de añadir nuevos artículos mediante un formulario ubicado en una nueva vista.
+
 ### Construir layouts
 Las aplicaciones siempre contienen varias parte de la interfaz que son comunes en todas las páginas (la cabecera, menú de navegación, footer, etc.). Blade permite el uso de Layouts, los cuales permiten de forma muy sencilla compartir entre distintas vistas las partes que tienen en común y así evitar repetir lo mismo múltiples veces. La idea consiste en separar en un archivo distinto la parte común de nuestras vistas y especificar en ella las zonas que albergarán los contenidos específicos de cada vista (lo que no es común).
 	
@@ -860,6 +862,8 @@ Ahora crearemos la vista concreta que especificará el contenido a introducir en
 
 `@section` indica la sección del padre donde será introducido el contenido especificado entre las etiquetas `@section` y `@endsection`.
 
+### Práctica 5: Aplicación RevistApp: mejora tus vistas con el uso de layouts
+Crea un layout que englobe la parte común que contienen todas las vistas de la aplicación.
 
 ### Asignar nombres a las rutas
 Una práctica muy habitual es asignar nombres a las rutas, lo cual es realmente sencillo:
@@ -974,7 +978,7 @@ class Article extends Model
     }
 }
 ```
-#### Accedeo a los modelos de una relación
+#### Acceder a los modelos de una relación
 El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articles` o `$article->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
 
 ```php
@@ -1044,6 +1048,9 @@ public function up()
     }
 }
 ```
+
+### Práctica 6: Aplicación RevistApp: añadir y mostrar comentarios de un artículo
+La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
