@@ -26,7 +26,7 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Formularios](#formularios)
   * [Construir layouts](#construir-layouts)
   * [Asignar nombres a las rutas](#asignar-nombres-a-las-rutas)
-  * [Añadir Bootstrap a tu proyecto](#a-adir-bootstrap-a-tu-proyecto)
+  * [Utilizar Bootstrap en tu proyecto](#utilizar-bootstrap-en-tu-proyecto)
   * [Relaciones One-to-Many](#relaciones-one-to-many)
 - [Referencias](#referencias)
 - [Licencia](#licencia)
@@ -895,7 +895,7 @@ $url = route('articles.show', ['id' => 12);
 
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
-### Añadir Bootstrap a tu proyecto
+### Utilizar Bootstrap a tu proyecto
 A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos 3 opciones para utilizar Bootstrap:
 
 a) Referenciar las dependecias JS y CSS utilizando BootstrapCDN (enlaces disponibles en la [documentación oficial](https://getbootstrap.com/docs/4.4/getting-started/introduction/))
