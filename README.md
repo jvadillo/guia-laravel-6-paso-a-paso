@@ -19,15 +19,18 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Paso 8 - Crear un Modelo](#paso-8---crear-un-modelo)
   * [Bonus - Opciones (flags) de Artisan](#bonus---opciones--flags--de-artisan)
   * [Práctica 1](#práctica-1)
-  * [Práctica 2: Aplicación RevistApp: mostrar listado de artículos](#práctica-2--aplicación-revistapp--mostrar-listado-de-artículos)
-  * [Práctica 3: Aplicación RevistApp: borrar artículos](#pr-ctica-3--aplicaci-n-revistapp--borrar-art-culos)
+  * [Práctica 2](#práctica-2)
+  * [Práctica 3](#práctica-3)
 - [Level up: Laravel nivel intermedio](#level-up--laravel-nivel-intermedio)
   * [Borrado de registros](#borrado-de-registros)
+  * [Práctica 4](#práctica-4)
   * [Formularios](#formularios)
+  * [Práctica 5](#práctica-5)
   * [Construir layouts](#construir-layouts)
   * [Asignar nombres a las rutas](#asignar-nombres-a-las-rutas)
   * [Utilizar Bootstrap en tu proyecto](#utilizar-bootstrap-en-tu-proyecto)
   * [Relaciones One-to-Many](#relaciones-one-to-many)
+  * [Práctica 6](#práctica-6)
 - [Referencias](#referencias)
 - [Licencia](#licencia)
 
@@ -816,7 +819,7 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
 </html>
 ```
 
-### Práctica 4: Aplicación RevistApp: añadir nuevos artículos
+### Práctica 4
 Añade la posibilidad de añadir nuevos artículos mediante un formulario ubicado en una nueva vista.
 
 ### Construir layouts
@@ -862,7 +865,7 @@ Ahora crearemos la vista concreta que especificará el contenido a introducir en
 
 `@section` indica la sección del padre donde será introducido el contenido especificado entre las etiquetas `@section` y `@endsection`.
 
-### Práctica 5: Aplicación RevistApp: mejora tus vistas con el uso de layouts
+### Práctica 5
 Crea un layout que englobe la parte común que contienen todas las vistas de la aplicación.
 
 ### Asignar nombres a las rutas
@@ -1049,7 +1052,7 @@ public function up()
 }
 ```
 
-### Práctica 6: Aplicación RevistApp: añadir y mostrar comentarios de un artículo
+### Práctica 6
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
 
 ## Referencias
