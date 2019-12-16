@@ -895,7 +895,7 @@ $url = route('articles.show', ['id' => 12);
 
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
-### Utilizar Bootstrap a tu proyecto
+### Utilizar Bootstrap en tu proyecto
 A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos 3 opciones para utilizar Bootstrap:
 
 a) Referenciar las dependecias JS y CSS utilizando BootstrapCDN (enlaces disponibles en la [documentación oficial](https://getbootstrap.com/docs/4.4/getting-started/introduction/))
