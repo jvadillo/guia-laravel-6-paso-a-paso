@@ -634,11 +634,11 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         // Encuentra el artículo por ID y lo elimina
-        $article = App\Article::find(1);
+        $article = App\Article::find($id);
         $article->delete();
         
         // Alternativa
-        App\Article::destroy(1);
+        App\Article::destroy($id);
         
         //Borrar modelos por consulta (borra todos los que encuentre en la consulta)
         Article::where('id',$id)->delete();        
