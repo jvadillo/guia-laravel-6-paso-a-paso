@@ -30,6 +30,7 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Asignar nombres a las rutas](#asignar-nombres-a-las-rutas)
   * [Utilizar Bootstrap en tu proyecto](#utilizar-bootstrap-en-tu-proyecto)
   * [Relaciones One-to-Many](#relaciones-one-to-many)
+  * [Generar datos de prueba](#generar-datos-de-prueba)
   * [Práctica 6](#práctica-6)
 - [Referencias](#referencias)
 - [Licencia](#licencia)
@@ -1051,6 +1052,69 @@ public function up()
     }
 }
 ```
+
+### Generar datos de prueba
+Laravel incluye un mecanismo llamado Seeder que sirve para rellenar la base de datos con datos de prueba. Por defecto nos incluye la clase DatabaseSeeder en la que podemos incluir el código que genere los datos de prueba:
+
+```php
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $faker = Faker\Factory::create();
+
+        for($i=0;$i<10;$i++){
+            DB::table('articles')->insert([
+                'title' => $faker->realText(50,2),
+                'body' => $faker->realText(400,2)
+            ]);
+        }
+    }
+}
+```
+
+Una vez creado nuestro Seeder es probable que necesites regenerar el fichero autoload.php:
+```
+composer dump-autoload
+```
+Por último, sólo nos quedaría lanzar el proceso de 'seeding':
+```
+php artisan db:seed
+```
+Si lo que quieres es lanzar el proceso de creación de base de datos y el de seeding a la vez, puedes utilizar el siguiente comando:
+```
+php artisan migrate:fresh --seed
+```
+
+
+#### Generar Seeders específicos
+Es recomendable crear un seeder específico por cada entidad. Para ello, puedes utilizar el siguiente comando:
+
+php artisan make:seeder UsersTableSeeder
+
+Por último, tendrás que modificar la clase DatabaseSeeder para que lance nuestros Seeders:
+
+```php
+**
+ * Run the database seeds.
+ *
+ * @return void
+ */
+public function run()
+{
+    $this->call([
+        UsersTableSeeder::class,
+        PostsTableSeeder::class,
+        CommentsTableSeeder::class,
+    ]);
+}
+```
+
 
 ### Práctica 6
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
