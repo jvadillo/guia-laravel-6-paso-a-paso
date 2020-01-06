@@ -1217,6 +1217,15 @@ Una de las cosas que tendrás que configurar es la ruta a la que se envía al us
 }
 ```
 
+Otro aspecto que podremos configurar es la ruta a la que enviaremos al usuario cuando intente acceder a una ruta protegida sin autenticarse. Por defecto Laravel le enviará a `/login`, pero podemos cambiar esto modificando el método `redirectTo()` del archivo `app/Http/Middleware/Authenticate.php`:
+
+ ```php
+protected function redirectTo($request)
+{
+    return route('login');
+}
+ ```
+ 
 #### Paso 3: Securizar rutas
 Indicaremos las rutas que queramos proteger directamente en nuestro ruter `web.php`:
 
