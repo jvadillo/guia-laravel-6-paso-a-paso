@@ -1150,12 +1150,15 @@ public function run()
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
 
 ### Autenticación
-La autenticación es una funcionalidad presente en la gran mayoría de aplicaciones. Básicamente se trata de asegurar que un usuario es quién dice ser mediante un control de acceso a la aplicación. Laravel 6 nos trae de serie los elementos necesarios para implementar la autenticación en nuestras aplicaciones y no tener que preocuparnos de hacer todas las tareas por nosotros mismos (login, registro, recuperación de contraseña, validación de usuario, etc.).
+La autenticación es una funcionalidad presente en la gran mayoría de aplicaciones. Básicamente se trata de asegurar que un usuario es quién dice ser mediante un control de acceso a la aplicación.
+
+Laravel 6 nos trae de serie los elementos necesarios para implementar la autenticación en nuestras aplicaciones y no tener que preocuparnos de hacer todas las tareas por nosotros mismos (login, registro, recuperación de contraseña, validación de usuario, etc.).
 
 En concreto necesitaremos lo siguiente:
 - Generar las vistas (login, registro, etc.), rutas y sus respectivas implementaciones.
 - Especificar las partes de nuestra web (rutas) que queramos proteger.
 
+#### Paso 1: Crear la estructura necesaria
 El primer paso es instalar el paquete de laravel/ui mediante Composer:
 ```
 composer require laravel/ui
@@ -1184,8 +1187,35 @@ o indicar la opción `bootstrap` al ejecutar el comando artisan:
 php artisan ui bootstrap --auth
 ```
 
+Si te fijas bien, el router `web.php` incluye dos nuevas líneas:
 
+```php
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+```
+
+La primera genera de forma automática las rutas necesarias para el proceso de autenticación (prueba a acceder a `/login` o `/register` para comprobarlo). Las vistas que se cargan son las autogeneradas en `resources/views/auth` (también se ha creado un layout).
+
+La segunda es simplemente un nuevo controlador autogenerado como ejemplo. Si intentas acceder a la ruta creada `/home` verás como la aplicación nos lleva a la página de login. Esto es porque el controlador `HomeController` está definido como 'seguro' y solo usuarios autenticados podrán acceder.
+
+¡Felicidades! Ya tienes la estructura básica de la aplicación creada. Puedes probar a registrar nuevos usuarios y realizar las acciones de login o logout con ellos.
+
+#### Paso 2: Configuración básica
+Una de las cosas que tendrás que configurar es la ruta a la que se envía al usuario tras autenticarse. Esto puede especificarse  mediante la variable `HOME` del archivo `RouteServiceProvider`:
+
+```php
+ public const HOME = '/home';
+ ```
+ 
+ Laravel utiliza por defecto el campo `email` para identificar a los usuarios. Puedes cambiar esto creando un método `username()` en el controlador `LoginController`.
+ 
+ ```php
+ public function username()
+{
+    return 'username';
+}
+```
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
