@@ -996,7 +996,7 @@ foreach ($user_articles as $article) {
 ```
 En el ejemplo anterior, la variable `$user_articles` contiene una colección de objetos de la clase `Article`. 
 
-#### Foreign keys
+#### Claves foráneas (Foreign keys)
 Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
 
 ```php
@@ -1013,7 +1013,36 @@ Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key 
 }
 ```
 
-#### Consejo: cómo añadir columnas a modelo existente
+#### Crear la restricción de las claves foráneas en la Base de Datos
+Laravel también permite la creación de las restricciones de claves foráneas a nivel de base de datos. De esta forma podemos asegurarnos la integridad referencial en nuestra base de datos relacional. El siguiente ejemplo muestra cómo hacerlo de forma sencilla:
+
+```php
+Schema::table('articles', function (Blueprint $table) {
+    $table->unsignedBigInteger('user_id');
+
+    $table->foreign('user_id')->references('id')->on('users');
+});
+```
+
+Además, en función de la base de datos utilizada, también podemos especificar qué acciones llevar a cabo cuando borremos un registro cuyo ID es utilizado como FK en otros registros. Siguiendo el ejemplo anterior, cuando eliminemos un usuario, podremos especificar el comportamiento de la base de datos:
+- Indicando que también se eliminen automáticamente todos sus artículos (conocido como 'borrado en cascada').
+- Impidiendo que se realice el borrado del usuario si tiene artículos asociados (evitando así una inconsistencia referencial).
+- Actualizar el valor `user_id` a `NULL` en los artículos que tengan como FK el usuario que será eliminado.
+
+Para ello utilizaremos el método `onDelete`:
+
+```php
+$table->foreign('user_id')
+      ->references('id')->on('users')
+      ->onDelete('cascade');
+ 
+ // O por ejemplo:
+ $table->foreign('user_id')
+      ->references('id')->on('users')
+      ->onDelete('set null');
+```
+
+### Consejo: cómo añadir columnas a modelo existente
 Existen dos escenarios posibles en los cuales queremos realizar cambios sobre modelos existentes:
 - Estamos desarrollando una nueva aplicación y no nos importa borrar los datos existentes.
 - Tenemos una aplicación en uso y queremos añadir columnas sin perder ningún registro.
