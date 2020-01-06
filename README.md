@@ -1149,6 +1149,12 @@ public function run()
 ### Práctica 6
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
 
+### Práctica 7
+Asigna nombres a las rutas y utilízalos desde los controladores y vistas de la aplicación.
+
+### Práctica 8
+Añade estilo a la aplicación mediante Bootstrap 4.
+
 ### Autenticación
 La autenticación es una funcionalidad presente en la gran mayoría de aplicaciones. Básicamente se trata de asegurar que un usuario es quién dice ser mediante un control de acceso a la aplicación.
 
@@ -1276,7 +1282,12 @@ if (Auth::check()) {
     // El usuario está autenticado.
 }
  ```
- 
+
+### Práctica 9
+- Añade las funciones de login, registro y logout a la aplicación.
+- Protege la ruta empleada para escribir un nuevo artículo (solo usuarios autenticados podrán acceder).
+- La opción de borrar un artículo únicamente estará visible para usuarios autenticados.
+- Muestra los comentarios de los artículos únicamente a usuarios autenticados. A los usuarios no identificados muéstrales un mensaje con un enlace a la página de login.
  
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
