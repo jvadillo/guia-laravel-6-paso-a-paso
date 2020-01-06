@@ -1173,7 +1173,7 @@ php artisan ui:auth
 Puesto que las vistas autogeneradas utilizan bootstrap, debemos o bien añadir manualmente bootstrap al layout generado `app.blade.php`:
 
 ```html
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -1217,6 +1217,58 @@ Una de las cosas que tendrás que configurar es la ruta a la que se envía al us
 }
 ```
 
+#### Paso 3: Securizar rutas
+Indicaremos las rutas que queramos proteger directamente en nuestro ruter `web.php`:
+
+```php
+Route::get('profile', function () {
+    // Solo podrán acceder usuarios autenticados.
+})->middleware('auth');
+ ```
+
+También podremos indicarlo directamente en el constructor de un controlador de la siguiente forma:
+
+```php
+public function __construct()
+{
+    $this->middleware('auth');
+}
+```
+
+#### Paso 4: Conseguir el usuario autenticado
+
+Existen distintas formas de acceder al objeto del usuario autenticado. Desde cualquier punto de la aplicación podremos acceder utilizado la facade `Auth`:
+
+ ```php
+use Illuminate\Support\Facades\Auth;
+
+// Conseguir el usuario autenticado:
+$user = Auth::user();
+
+// Conseguir el ID del usuario autenticado:
+$id = Auth::id();
+ ```
+ 
+También podremos conseguirlo desde cualquier petición:
+
+ ```php
+public function update(Request $request)
+{
+    $request->user(); //  devuelve una instancia del usuario autenticado.
+}
+ ```
+ 
+ Para comprobar si un usuario está autenticado, podemos emplear el método `check()`:
+
+ ```php
+use Illuminate\Support\Facades\Auth;
+
+if (Auth::check()) {
+    // El usuario está autenticado.
+}
+ ```
+ 
+ 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
 * [Laracats](https://laracasts.com) - Laravel screencasts
