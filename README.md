@@ -997,7 +997,7 @@ foreach ($user_articles as $article) {
 En el ejemplo anterior, la variable `$user_articles` contiene una colección de objetos de la clase `Article`. 
 
 #### Foreign keys
-Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'\_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
+Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
 
 ```php
     public function up()
