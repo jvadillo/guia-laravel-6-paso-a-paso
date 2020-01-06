@@ -32,6 +32,7 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Relaciones One-to-Many](#relaciones-one-to-many)
   * [Generar datos de prueba](#generar-datos-de-prueba)
   * [Práctica 6](#práctica-6)
+  * [Autenticación](#autenticación)
 - [Referencias](#referencias)
 - [Licencia](#licencia)
 
@@ -1147,6 +1148,24 @@ public function run()
 
 ### Práctica 6
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
+
+### Autenticación
+La autenticación es una funcionalidad presente en la gran mayoría de aplicaciones. Básicamente se trata de asegurar que un usuario es quién dice ser mediante un control de acceso a la aplicación. Laravel 6 nos trae de serie los elementos necesarios para implementar la autenticación en nuestras aplicaciones y no tener que preocuparnos de hacer todas las tareas por nosotros mismos (login, registro, recuperación de contraseña, validación de usuario, etc.).
+
+En concreto necesitaremos lo siguiente:
+- Generar las vistas (login, registro, etc.), rutas y sus respectivas implementaciones.
+- Especificar las partes de nuestra web (rutas) que queramos proteger.
+
+El primer paso es instalar el paquete de laravel/ui mediante Composer:
+```
+composer require laravel/ui
+```
+
+Este paquete nos permitirá generar de forma automática los archivos relacionados con la interfaz de usuario:
+
+
+
+
 
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
