@@ -31,8 +31,11 @@ Esto es una guía práctica para aprender a paso a paso a desarrollar aplicacion
   * [Utilizar Bootstrap en tu proyecto](#utilizar-bootstrap-en-tu-proyecto)
   * [Relaciones One-to-Many](#relaciones-one-to-many)
   * [Generar datos de prueba](#generar-datos-de-prueba)
-  * [Práctica 6](#práctica-6)
+  * [Prácticas 6-7-8](#práctica-6)
   * [Autenticación](#autenticación)
+  * [Práctica 9](#práctica-9)
+  * [Manejo de sesiones](#manejo-de-sesiones)
+  * [Práctica 10](#práctica-9)
 - [Referencias](#referencias)
 - [Licencia](#licencia)
 
