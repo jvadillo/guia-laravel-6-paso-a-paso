@@ -1288,6 +1288,48 @@ if (Auth::check()) {
 - Protege la ruta empleada para escribir un nuevo artículo (solo usuarios autenticados podrán acceder).
 - La opción de borrar un artículo únicamente estará visible para usuarios autenticados.
 - Muestra los comentarios de los artículos únicamente a usuarios autenticados. A los usuarios no identificados muéstrales un mensaje con un enlace a la página de login.
+
+### Manejo de sesiones
+HTTP es un protocolo sin estado (stateless), es decir, no guarda ninguna información sobre conexiones anteriores. Esto quiere decir que nuestra aplicación no tiene "memoria", y cada petición realizada por un usuario es nueva para la aplicación. Las sesiones permiten afrontar este problema, ya que son un mecanismo para almacenar información entre las peticiones que realiza un usuario al navegar por nuestra aplicación. Laravel implementa las sesiones de forma que su uso es muy sencillo para los desarrolladores.
+
+#### Configuración
+Laravel soporta el manejo de sesiones con distintos backends (bases de datos, ficheros, etc.). Esta configuración se indica en el fichero `config/session.php`, en le que podemos indicar el driver a utilizar ("file", "cookie", "database", "apc", "memcached", "redis", "dynamodb" o "array"). La opción utilizada por defecto es "cookie", la cual es suficiente para la mayoría de aplicaciones.
+
+Más información sobre la configuración en la [documentación oficial](https://laravel.com/docs/6.x/session).
+
+#### Uso de las sesiones
+Existen dos formas principales de acceder a la inforamación de la sesión de usuario:
+-  El helper global `session`
+ ```php
+    // Obtener un valor de la sesión
+    $value = session('key');
+
+    // Podemos indicar un valor por defecto
+    $value = session('key', 'default');
+
+    // Para almacenar un valor, le pasamos un Array:
+    session(['key' => 'value']);
+ ```
+-  Mediante la instancia `Request` (inyectada en los métodos de nuestros controladores)
+
+ ```php
+    public function show(Request $request, $id)
+    {
+        $value = $request->session()->get('key');
+	
+        // También es posible indicar un valor por defecto si no existe ninguno:
+	$value = $request->session()->get('key', 'default');
+	
+	// Almacenar un valor
+	$request->session()->put('key', 'value');
+	
+	// Recuperar un valor y eliminarlo de la sesión
+	$value = $request->session()->pull('key', 'default');
+    }
+ ```
+ 
+ ### Práctica 10
+ Añade la posibilidad de guardar en sesión los artículos favoritos de un usuario. Cuando el usuario haga click en un enlace/botón del artículo, este se guardará como favorito en la sesión. Los artículos marcados como favoritos se podrán distinguir visualmente (mediante un icono, texto en negrita o similar).
  
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
