@@ -1332,7 +1332,11 @@ Existen dos formas principales de acceder a la inforamación de la sesión de us
  ```
  
  ### Práctica 10
- Añade la posibilidad de guardar en sesión los artículos favoritos de un usuario. Cuando el usuario haga click en un enlace/botón del artículo, este se guardará como favorito en la sesión. Los artículos marcados como favoritos se podrán distinguir visualmente (mediante un icono, texto en negrita o similar).
+Añade las siguientes funcionalidades a la aplicación:
+- Guardar en sesión los artículos leídos: cuando un usuario entre a ver un artículo, se almacenará en sesión que ya lo ha leído.
+- Guardar en sesión los artículos favoritos de un usuario: el usuario podrá hacer click en un enlace/botón que guarde en sesión ese artículo como favorito.
+
+Los artículos marcados como favoritos se podrán distinguir visualmente (mediante un icono, texto en negrita o similar). Igualmente, los artículos leídos se mostrarán también de forma especial.
  
 ## Referencias
 * [Laravel docs](https://laravel.com/docs/6.x) - Laravel Documentation
