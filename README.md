@@ -4,7 +4,7 @@
 Esto es una guía práctica para aprender a paso a paso a desarrollar aplicaciones web con Laravel 6.
 
 ## Table of Contents
-- [Introduction](#introduction)
+- [Introducción](#introduction)
   * [Prerequisitos](#prerequisitos)
   * [Conceptos básicos](#conceptos-b-sicos)
   * [Preparar el entorno de desarrollo](#preparar-el-entorno-de-desarrollo)
