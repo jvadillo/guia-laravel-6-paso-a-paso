@@ -185,29 +185,32 @@ vagrant ssh
 * Puedes detener la máquina virtual con el comando `vagrant halt`.
 
 ## Aprende lo imprescindible en 9 pasos
+### Introducción
+Crearemos una aplicación web con Laravel paso a paso. Al finalizar los 9 pasos obtendremos como resultado una revista online a la que hemos llamado RevistApp y que mostrará los artículos almacenados en una base de datos. ¡Comencemos!
+
 ### Paso 1 - Crea tu primer proyecto
 Accede a tu máquina virtual utilizando el comando `vagrant ssh` y ejecuta el siguiente comando para crear un nuevo proyecto:
 
 ```
-composer create-project --prefer-dist laravel/laravel articulos-app
+composer create-project --prefer-dist laravel/laravel revistapp
 ```
 
-Este comando inicializará un nuevo proyecto creado en el directorio `noticias-app`. Puedes acceder a la aplicación entrando a http://homestead.test (o el dominio que hayas indicado en la configuración) desde tu navegador favorito.
+Este comando inicializará un nuevo proyecto creado en el directorio `revistapp`. Puedes acceder a la aplicación entrando a http://homestead.test (o el dominio que hayas indicado en la configuración) desde tu navegador favorito.
 
 De forma alternativa también puedes utilizar el comando `laravel new` que también creará un nuevo proyecto de Laravel en la carpeta especificada:
 ```
-laravel new articulos-app
+laravel new revistapp
 ```
 
 ### Step 2 - Configura el proyecto
 #### La clave de la aplicación (Application Key)
-Laravel utiliza una clave para securizar tu aplicación. La clave de aplicación es un string de 32 caracteres utilizado para encriptar datos como la sesión de usuario. Cuando se instala Laravel utilizando Composer o el instalador de Laravel, la clave se genera automáticamente, por lo que no es necesario hacer nada. Comprueba que existe un valor para APP_KEY en el fichero de configuración `.env`. En caso de no tener una clave generada, créala utilizando el siguiente comando:
+Laravel utiliza una clave para securizar tu aplicación. La clave de aplicación es un string de 32 caracteres utilizado para encriptar datos como la sesión de usuario. Cuando se instala Laravel utilizando Composer o el instalador de Laravel, la clave se genera automáticamente, por lo que no es necesario hacer nada. Comprueba que existe un valor para `APP_KEY` en el fichero de configuración `.env`. En caso de no tener una clave generada, créala utilizando el siguiente comando:
 
 ```
 php artisan key:generate
 ```
 
-#### Permisos de directorio
+#### Establecer los permisos de directorio
 Homestead realiza este paso por nosotros, por lo que los permisos deberían estar correctamente establecidos. Si no estás utilizando Homestead o quieres desplegar tu aplicación en un servidor, no olvides establecer permisos de escritura para el servidor web en los directorios `storage` y  `bootstrap/cache`.
 
 ### Paso 3 - Crear un Router
@@ -235,7 +238,7 @@ php artisan route:list
 También es posible devolver un JSON. Laravel convertirá automáticamente un array a JSON:
 
 ```php
-Route::get('/articles', function () {
+Route::get('/articulos', function () {
     return ['foo' => 'bar'];
 });
 
@@ -245,25 +248,25 @@ Route::get('/articles', function () {
 Una URL puede contener información de nuestro interés. Laravel permite acceder a esta información de forma sencilla utilizando los parámetros de ruta:
 
 ```php
-Route::get('articles/{id}', function ($id) {
-    return 'You want the article '.$id;
+Route::get('articulos/{id}', function ($id) {
+    return 'Vas a leer el artículo: '.$id;
 });
 ```
 
 Los parámetros de ruta vienen definidos entre llaves `{}` y se inyectan automáticamente en las callbacks. Es posible utilizar más de un parámetro de ruta:
 
 ```php
-Route::get('articles/{id}/user/{name}', function ($id, $name) {
-    // Code here.
+Route::get('articulos/{id}/user/{name}', function ($id, $name) {
+    // Tu código aquí.
 });
 ```
 
 #### Acceder a la información de la petición
-También es posible acceder a la información enviada en la petición. Por ejemplo, el siguiente código devolverá el valor enviado para el parámetro 'date' de la URL `/articles?date=today`:
+También es posible acceder a la información enviada en la petición. Por ejemplo, el siguiente código devolverá el valor enviado para el parámetro 'fecha' de la URL `/articulos?fecha=hoy`:
 
 ```php
-Route::get('/articles', function () {
-    $date = request('date');
+Route::get('/articulos', function () {
+    $date = request('fecha');
     return $date;
 });
 ```
@@ -274,10 +277,10 @@ Route::get('/articles', function () {
 Las vistas contienen el HTML que sirve nuestra aplicación a los usuarios. Se almacenan en el directorio `resources/views` de nuestro proyecto.
 
 ```html
-<!-- vista almacenada en resources/views/articles.blade.php -->
+<!-- vista almacenada en resources/views/articulos.blade.php -->
 <html>
     <body>
-        <h1>Let's read some articles!</h1>
+        <h1>¡Vamos a leer unos artículos!</h1>
     </body>
 </html>
 ```
@@ -286,8 +289,8 @@ Las vistas contienen el HTML que sirve nuestra aplicación a los usuarios. Se al
 Cargar y devolver una vista al usuario es tan sencillo como utilizar la función global (helper) `view()`:
 
 ```php
-Route::get('/articles', function () {
-    return view('articles');
+Route::get('/articulos', function () {
+    return view('articulos');
 });
 ```
 
@@ -300,7 +303,7 @@ Mostrar datos almacenados en variables es muy sencillo:
 ```html
 <html>
     <body>
-	<h1>My name is {{ $name }}</h1>
+	<h1>Vamos a leer al escritor {{ $nombre }}</h1>
         </ul>
     </body>
 </html>
@@ -309,14 +312,14 @@ Mostrar datos almacenados en variables es muy sencillo:
 También es posible iterar por los datos de una colección o array. El siguiente ejemplo muestra como iterar por un array de strings de forma rápida:
 
 ```html
-<!-- View stored in resources/views/articles.blade.php -->
+<!-- View stored in resources/views/articulos.blade.php -->
 <html>
     <body>
-	<h1>My name is {{ $name }}</h1>
-        <h2>These are our latest articles:</h2>
+	<h1>Vamos a leer al escritor {{ $nombre }}</h1>
+        <h2>Estos son sus últimos artículos:</h2>
         <ul>
-            @foreach ($articles as $article)
-                <li>{{ $article }}</li>
+            @foreach ($articulos as $articulo)
+                <li>{{ $articulo }}</li>
             @endforeach
         </ul>
     </body>
@@ -326,10 +329,10 @@ También es posible iterar por los datos de una colección o array. El siguiente
 Para que la vista pueda acceder a los datos, es necesario proporcionárselos en la llamada al método `view()`:
 
 ```php
-Route::get('/articles', function () {
-    $articles = array('First', 'Second','Third', 'Last');
+Route::get('/articulos', function () {
+    $articles = array('Primero', 'Segundo','Tercero', 'Último');
     return view('articles', [
-    	'name' => 'Mike James',
+    	'nombre' => 'Ane Aranceta',
         'articles' => $articles
     ]);
 });
@@ -341,11 +344,11 @@ Blade es un potente motor de plantillas que permite el uso de todo tipo de estru
 
 ```html
 @for ($i = 0; $i < 10; $i++)
-    The current value is {{ $i }}
+    El valor actual es {{ $i }}
 @endfor
 
 @foreach ($users as $user)
-    <p>This is user {{ $user->id }}</p>
+    <p>El usuario: {{ $user->id }}</p>
 @endforeach
 
 @forelse($users as $user)
@@ -355,19 +358,19 @@ Blade es un potente motor de plantillas que permite el uso de todo tipo de estru
 @endforelse
 
 @while (true)
-    <p>I'm looping forever.</p>
+    <p>Eso es un bucle infinito.</p>
 @endwhile
 
-@if (count($records) === 1)
-    I have one record!
-@elseif (count($records) > 1)
-    I have multiple records!
+@if (count($articulos) === 1)
+    Hay un artículo.
+@elseif (count($articulos) > 1)
+    Hay varios artículos.
 @else
-    I don't have any records!
+    No hay ninguno.
 @endif
 
 @unless (Auth::check())
-    You are not signed in.
+    No estas autenticado.
 @endunless
 ```
 
@@ -384,7 +387,7 @@ Existen dos formas de crear un controlador:
 
 En este caso escogeremos la segunda opción y ejecutaremos el siguiente comando:
 ```
-php artisan make:controller ArticleController
+php artisan make:controller ArticuloController
 ```
 De este modo Laravel creará automáticamente el controlador:.
 
@@ -396,7 +399,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\User;
 
-class ArticleController extends Controller
+class ArticuloController extends Controller
 {
     /**
      * Show the profile for the given user.
@@ -406,7 +409,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('show', ['article' => 'My first article about Laravel');
+        return view('show', ['articulo' => 'Mi primer artículo de Laravel');
     }
 }
 ```
@@ -416,10 +419,10 @@ Añadiendo `--resource` al comando anterior, Artisan añadirá al controlador cr
 El siguiente paso es añadir al Router la llamada a los métodos del Controlador.
 
 ```php
-Route::get('articles/', 'ArticleController@index');
-Route::get('articles/{id}', 'ArticleController@show');
-Route::get('articles/{id}/create', 'ArticleController@create');
-Route::post('articles/', 'ArticleController@store');
+Route::get('articulos/', 'ArticuloController@index');
+Route::get('articulos/{id}', 'ArticuloController@show');
+Route::get('articulos/{id}/create', 'ArticuloController@create');
+Route::post('articulos/', 'ArticuloController@store');
 ```
 De esta forma direccionaremos las peticiones a los métodos de los controladores.
 
@@ -436,9 +439,9 @@ El fichero `.env` de Laravel contiene la configuración relacionada con la aplic
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=here your database name(articulos)
-DB_USERNAME=here database username(root)
-DB_PASSWORD=here database password(root)
+DB_DATABASE=nombre de la base de datos(revistapp)
+DB_USERNAME=nombre de usuario de la base de datos(root)
+DB_PASSWORD=contraseña del usuario(root)
 ```
 Todas estas variables de configuración serán referenciadas desde el archivo de configuración `database.php`.
 
@@ -451,14 +454,14 @@ mysql -u root
 
 Crea la base de datos si no está creada:
 ```
-CREATE DATABASE articulos;
+CREATE DATABASE revistapp;
 ```
 
 ### Paso 7 - Crear la Migración (Migration)
 Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articles". 
 
 ```
-php artisan make:migration create_articles_table --create=articles
+php artisan make:migration create_articulos_table --create=articulos
 ```
 Laravel creará una nueva migración automáticamente en el directorio `database/migrations`.
 
@@ -469,7 +472,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
   
-class CreateArticlesTable extends Migration
+class CreateArticulosTable extends Migration
 
 {
     /**
@@ -479,10 +482,10 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('articulos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->text('body');
+            $table->string('titulo');
+            $table->text('contenido');
             $table->timestamps();
         });
     }
@@ -496,7 +499,7 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('articulos');
     }
 }
 ```
@@ -538,10 +541,10 @@ En otras palabras, cada tabla de la base de datos corresponde a un Modelo, el cu
 #### Creando un Modelo
 Vamos a crear un Modelo:
 ```
-php artisan make:model Article
+php artisan make:model Articulo
 ```
 
-El comando anterior ha creado una clase llamada Article en el directorio `app` (es el directorio por defecto para los modelos de Eloquent).
+El comando anterior ha creado una clase llamada Articulo en el directorio `app` (es el directorio por defecto para los modelos de Eloquent).
 
 ```php
 <?php
@@ -550,7 +553,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Articulo extends Model
 {
     //
 }
@@ -564,23 +567,23 @@ Los modelos de Eloquent se utilizan para recuperar información de las tablas re
 ```php
 
 // Recupera todos los modelos
-$articles = App\Article::all();
+$articulos = App\Articulo::all();
 
 // Recupera un modelo a partir de su clave
-$article = App\Article::find(1);
+$articulo = App\Articulo::find(1);
 
 // Recupera el primer modelo que cumpla con los criterios indicados
-$article = App\Article::where('active', 1)->first();
+$articulos = App\Articulo::where('active', 1)->first();
 
 // Recupera los modelos que cumplan con los criterios indicados y de la forma indicada:
-$articles = App\Article::where('active', 1)
-               ->orderBy('title', 'desc')
+$articulos = App\Articulo::where('active', 1)
+               ->orderBy('titulo', 'desc')
                ->take(10)
                ->get();
 
 // Iterar sobre los resultados:
-foreach ($articles as $article) {
-    echo $articles->title;
+foreach ($articulos as $articulo) {
+    echo $articulo->titulo;
 }
 
 ```
@@ -598,7 +601,7 @@ use App\Article;
 use Illuminate\Http\Request;
 use Redirect;
    
-class ArticleController extends Controller
+class ArticuloController extends Controller
 {
 
     /**
@@ -611,11 +614,11 @@ class ArticleController extends Controller
     {
         // Validar la petición...
 
-        $article = new Article;
+        $articulo = new Articulo;
 
-        $article->title = request('title');
+        $articulo->titulo = request('titulo');
 
-        $article->save();
+        $articulo->save();
     }
    
     /**
@@ -624,12 +627,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {         
-        $article = App\Article::find(1);
+        $articulo = App\Articulo::find(1);
 
-        $article->title = request('title');
-        $article->body = request('body');
+        $articulo->titulo = request('titulo');
+        $articulo->contenido = request('contenido');
 
-        $article->save();
+        $articulo->save();
     }
    
     /**
@@ -639,14 +642,14 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         // Encuentra el artículo por ID y lo elimina
-        $article = App\Article::find($id);
-        $article->delete();
+        $articulo = App\Articulo::find($id);
+        $articulo->delete();
         
         // Alternativa
-        App\Article::destroy($id);
+        App\Articulo::destroy($id);
         
         //Borrar modelos por consulta (borra todos los que encuentre en la consulta)
-        Article::where('id',$id)->delete();        
+        Articulo::where('id',$id)->delete();        
     }
      
 }
@@ -656,7 +659,7 @@ Laravel proporciona alternativas para realizar operaciones más complejas, como 
 
 ```php
 // Retrieve flight by name, or create it if it doesn't exist...
-$article = App\Article::firstOrCreate(['name' => 'Laptop']);
+$articulo = App\Articulo::firstOrCreate(['name' => 'Laptop']);
 ```
 
 Puedes encontrar todas las posibilidades en la [documentación oficial](https://laravel.com/docs/6.x/eloquent).
@@ -669,34 +672,34 @@ php artisan tinker
 ```
 A partir de ese momento se puede comenzar a interactuar con nuestra aplicación, como muestra el ejemplo a continuación:
 ```bash
->>> $article = new App\Article
-=> App\Article {#3014}
->>> $article->title="AA";
+>>> $articulo = new App\Articulo
+=> App\Articulo {#3014}
+>>> $article->titulo="AA";
 => "AA"
->>> $article->body="BBBB";
+>>> $articulo->contenido="BBBB";
 => "BBBB"
 >>> $article
-=> App\Article {#3014
-     title: "Articulo numero 2",
-     body: "Lorem ipsum...",
+=> App\Articulo {#3014
+     titulo: "Articulo numero 2",
+     contenido: "Lorem ipsum...",
    }
->>> $article->save();
->>> \App\Article::count();
+>>> $articulos->save();
+>>> \App\Articulo::count();
 => 2
->>> $articles = App\Article::all();
+>>> $articulos = App\Articulo::all();
 => Illuminate\Database\Eloquent\Collection {#3035
      all: [
-       App\Article {#3036
+       App\Articulo {#3036
          id: 1,
-         title: "Articulo numero 1",
-         body: "Lorem ipsum...",
+         titulo: "Articulo numero 1",
+         contenido: "Lorem ipsum...",
          created_at: null,
          updated_at: null,
        },
-       App\Article {#3046
+       App\Articulo {#3046
          id: 2,
-         title: "Articulo numero 2",
-         body: "Lorem ipsum...",
+         titulo: "Articulo numero 2",
+         contenido: "Lorem ipsum...",
          created_at: "2019-12-15 15:32:04",
          updated_at: "2019-12-15 15:32:04",
        },
@@ -711,7 +714,7 @@ Para salir se ejecuta el comando `exit`.
 Existen opciones muy útiles para generar archivos relacionados con los modelos. El siguiente ejemplo crea un modelo junto con su controlador y migración utilizando un único comando:
 
 ```
-php artisan make:model Article -mcr
+php artisan make:model Articulo -mcr
 ```
 - -m indica la creación de una migración
 - -c indica la creación de un controlador
@@ -759,13 +762,13 @@ Los formularios HTML son la forma más habitual de recoger datos introducidos po
 Para este cometido necesitaremos crear dos nuevas rutas en nuestro Router: una para mostrar al usuario el formulario de recogida de datos y otra para recibir y tratar los datos introducidos por el usuario.
 
 ```php
-Route::get('articles/create', 'ArticleController@create');
-Route::post('articles/', 'ArticleController@store');
+Route::get('articulos/create', 'ArticleController@create');
+Route::post('articulos/', 'ArticleController@store');
 ```
 De igual forma que hemos necesitado dos nuevas rutas, también necesitaremos dos nuevos métodos en nuestro Controller:
 
 ```php
-class ArticleController extends Controller
+class ArticuloController extends Controller
 {
     /**
      * Show the form to create a new article.
