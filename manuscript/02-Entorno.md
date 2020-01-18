@@ -1,24 +1,35 @@
-### Preparar el entorno de desarrollo
-Puedes lanzar una aplicación desarrollada con Laravel en cualquier máquina o servidor con Apache, PHP y Composer. Para facilitar la creación del entorno de desarrollo, utilizaremos Laravel Homestead. Homestead es una Vagrant box que provee de un entorno de desarrollo con todo el software necesario: PHP, servidor web, base de datos, gestor de dependencias, etc.
+# Preparar el entorno de desarrollo
+Puedes lanzar una aplicación desarrollada con Laravel en cualquier máquina o servidor con [Apache](https://httpd.apache.org/)/Nginx, [PHP](https://www.php.net/) y [Composer](https://getcomposer.org/). Para facilitar la creación del entorno de desarrollo, utilizaremos [Laravel Homestead](https://github.com/laravel/homestead). Homestead es una Vagrant box que provee de un entorno de desarrollo con todo el software necesario: PHP, servidor web, base de datos, gestor de dependencias, etc.
+
+No obstante, si te sientes más cómodo utilizando tu propio servidor o entorno de desarrollo, puedes hacerlo perfectamente siempre que cumplas con los requerimientos citados.
+
+En esta sección veremos paso a paso como preparar nuestro entorno de desarrollo con Homestead.
 
 #### 1. Instalar VirtualBox 6.x
 Descarga VirtualBox desde la página web oficial [www.virtualbox.org](https://www.virtualbox.org/) e instálalo en tu ordenador. También puedes utilizar VMWare, Parallels o Hyper-V en lugar de Virtual Box.
+
 #### 2. Instalar [Vagrant](https://www.vagrantup.com/downloads.html).
 Descarga e instala Vagrant tal y como lo indica la documentación de la página web oficial [https://www.vagrantup.com]((https://www.vagrantup.com/downloads.html)).
+
 #### 3. Añadir laravel/homestead box a tu instalación de Vagrant
 Una Vagrant box es una imagen base utilizada para clonar de forma rápida y sencilla una máquina virtual. Ejecuta el siguiente comando para descargar e instalar la Vagrant box the Larabel y así poder utilizarla para crear tantos entornos como quieras.
+
 ```
 vagrant box add laravel/homestead
 ```
+
 Puedes comprobar que se ha añadido correctamente utilizando el comando `vagrant box list`.
 
 #### 4. Instalar Homestead
 Clona el repositorio oficial de Homestead en un directorio. Como recomendación, puedes clonarlo en una carpeta llamada Homestead en la raíz de tu sistema, y utilizar esta máquina virtual para todos tus proyectos de Laravel.
+
 ```
 git clone https://github.com/laravel/homestead.git ~/Homestead
 ```
+
 #### 5. Crea el archivo de configuración Homestead.yaml
 Ejecuta el comando init.sh en un terminal dentro del directorio donde clonaste Homestead. Este comando creará el archivo de configuración Homestead.yaml.
+
 ```
 // Mac / Linux...
 bash init.sh
@@ -104,7 +115,6 @@ Modifica el archivo `hosts` (lo encontrarás en `/etc/hosts` en Mac/Linux y en `
 Para evitar otro tipo de problemas, la recomendación general es utilizar dominios de tipo ".localhost", ".invalid", ".test", or ".example".
 
 #### 9. Arrancar y prueba el entorno creado
-
 Una vez ya tenemos Homestead configurado y el archivo `hosts` modificado, ya podemos ir al directorio `Homestead` y ejecutar el siguiente comando para arranchar la máquina virtual (la primera vez tardará más tiempo al tener que realizar la preparación del entorno):
 
 ```
