@@ -217,13 +217,13 @@ Homestead realiza este paso por nosotros, por lo que los permisos deberían esta
 Cada vez que un usuario hace una petición a una de las rutas de la aplicación, Laravel trata la petición mediante un Router definido en el directorio `routes`, el cual será el encargado de direccionar la petición a un Controlador. Las rutas accesibles para navegadores estarán definidas en el archivo `routes/web.php` y aquellas accesibles para servicios web (webservices) estarán definidas en el archivo `routes/api.php`. A continuación se muestra un ejemplo:
 
 ```php
-Route::get('/articles', function () {
-    return 'Let's read the articles!';
+Route::get('/articulos', function () {
+    return 'Let's read the articulos!';
 });
 
 ```
 
-El código anterior muestra cómo se define una ruta básica. En este caso, cuando el usuario realice una petición sobre `/articles`, nuestra aplicación enviará una respuesta al usuario con el string 'Let's read the articles!'.
+El código anterior muestra cómo se define una ruta básica. En este caso, cuando el usuario realice una petición sobre `/articulos`, nuestra aplicación enviará una respuesta al usuario con el string 'Let's read the articulos!'.
 
 Aparte de ejecutar las acciones definidas para cada ruta, Laravel ejecutará middlewere específico en función del Router utilizado (por ejemplo, el middlewere relacionado con las peticiones web proveerá de funcionalidades como el estado de la sesión o la protección (CSRF)[https://es.wikipedia.org/wiki/Cross-site_request_forgery]).
 
@@ -330,10 +330,10 @@ Para que la vista pueda acceder a los datos, es necesario proporcionárselos en 
 
 ```php
 Route::get('/articulos', function () {
-    $articles = array('Primero', 'Segundo','Tercero', 'Último');
-    return view('articles', [
+    $articulos = array('Primero', 'Segundo','Tercero', 'Último');
+    return view('articulos', [
     	'nombre' => 'Ane Aranceta',
-        'articles' => $articles
+        'articulos' => $articulos
     ]);
 });
 ```
@@ -458,7 +458,7 @@ CREATE DATABASE revistapp;
 ```
 
 ### Paso 7 - Crear la Migración (Migration)
-Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articles". 
+Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articulos". 
 
 ```
 php artisan make:migration create_articulos_table --create=articulos
@@ -559,7 +559,7 @@ class Articulo extends Model
 }
 ```
 
-Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Article` interactuará con la tabla llamada 'articles'.
+Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Article` interactuará con la tabla llamada 'articulos'.
 
 #### Recuperando datos de la base de datos
 Los modelos de Eloquent se utilizan para recuperar información de las tablas relacionadas con el modelo. Proporcionan métodos como los siguientes:
@@ -798,7 +798,7 @@ class ArticuloController extends Controller
         
         $article->save();
         
-        return redirect('/articles');
+        return redirect('/articulos');
     }
 }
 ```
@@ -810,7 +810,7 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
 <html>
     <body>
         <h1>Let's write a new article:</h1>
-        <form action="/articles/create" method="POST">
+        <form action="/articulos/create" method="POST">
             <div>
                 <label for="title">Name:</label>
                 <input type="text" id="title" name="title">
@@ -880,28 +880,28 @@ Crea un layout que englobe la parte común que contienen todas las vistas de la 
 Una práctica muy habitual es asignar nombres a las rutas, lo cual es realmente sencillo:
 
 ```php
-Route::get('articles/', 'ArticleController@index')->name('articles.index');
-Route::get('articles/create', 'ArticleController@index')->name('articles.create');
-Route::get('articles/{id}', 'ArticleController@show')->name('articles.show');
+Route::get('articulos/', 'ArticleController@index')->name('articulos.index');
+Route::get('articulos/create', 'ArticleController@index')->name('articulos.create');
+Route::get('articulos/{id}', 'ArticleController@show')->name('articulos.show');
 ```
 Como se puede deducir del ejemplo anterior, utlizamos el método `name()` para definir el nombre que queremos establecer para cada ruta.
 De este modo, podremos cargar las rutas utilizando el método global `route()`:
 ```php
 // Generar una url
-$url = route('articles.index');
+$url = route('articulos.index');
 
 // Redireccionando a una ruta:
-return redirect()->route('articles.show');
+return redirect()->route('articulos.show');
 ```
 
 En ocasiones necesitaremos indicar al método route los parámetros que necesitará insertar:
 ```php
-Route::get('articles/{id}', function ($id) {
+Route::get('articulos/{id}', function ($id) {
     //
-})->name('articles.show');
+})->name('articulos.show');
 
-$url = route('articles.show', ['id' => 12);
-// /articles/12
+$url = route('articulos.show', ['id' => 12);
+// /articulos/12
 ```
 
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
@@ -968,9 +968,9 @@ Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos 
 class User extends Model
 {
     /**
-     * Get the articles records associated with the user.
+     * Get the articulos records associated with the user.
      */
-    public function articles()
+    public function articulos()
     {
         return $this->hasMany('App\Article');
     }
@@ -990,18 +990,18 @@ class Article extends Model
 }
 ```
 #### Acceder a los modelos de una relación
-El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articles` o `$article->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
+El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articulos` o `$article->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
 
 ```php
 $user = App\User::find(1); // Ejecuta la sentencia: select * from users where id = 1
 
-$user_articles = $user->articles; // Ejecutara la sentencia: select * from articles where user_id = 1
+$user_articulos = $user->articulos; // Ejecutara la sentencia: select * from articulos where user_id = 1
 
-foreach ($user_articles as $article) {
+foreach ($user_articulos as $article) {
     //
 }
 ```
-En el ejemplo anterior, la variable `$user_articles` contiene una colección de objetos de la clase `Article`. 
+En el ejemplo anterior, la variable `$user_articulos` contiene una colección de objetos de la clase `Article`. 
 
 #### Claves foráneas (Foreign keys)
 Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
@@ -1009,7 +1009,7 @@ Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key 
 ```php
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('articulos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('title');
@@ -1024,7 +1024,7 @@ Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key 
 Laravel también permite la creación de las restricciones de claves foráneas a nivel de base de datos. De esta forma podemos asegurarnos la integridad referencial en nuestra base de datos relacional. El siguiente ejemplo muestra cómo hacerlo de forma sencilla:
 
 ```php
-Schema::table('articles', function (Blueprint $table) {
+Schema::table('articulos', function (Blueprint $table) {
     $table->unsignedBigInteger('user_id');
 
     $table->foreign('user_id')->references('id')->on('users');
@@ -1064,13 +1064,13 @@ Este comando eliminará todas las tablas de la base de datos y volverá a crearl
 Para el segundo caso (modificar una tabla sin perder datos), lo recomendable es crear una nueva migración y ejecutar el comando `php artisan migrate` para lanzar los cambios. Normalmente se incluyen los cambios en el propio nombre de la migración, por ejemplo:
 
 ```bash
-php artisan migrate:make add_category_to_articles --table="articles"
+php artisan migrate:make add_category_to_articulos --table="articulos"
 ```
 
 ```php
 public function up()
 {
-    Schema::table('articles', function($table)
+    Schema::table('articulos', function($table)
     {
         $table->string('category');
     });
@@ -1082,7 +1082,7 @@ public function up()
      */
     public function down()
     {
-	    Schema::table('articles', function ($table) {
+	    Schema::table('articulos', function ($table) {
 		$table->dropColumn('category');
 	    });
     }
@@ -1105,7 +1105,7 @@ class DatabaseSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         for($i=0;$i<10;$i++){
-            DB::table('articles')->insert([
+            DB::table('articulos')->insert([
                 'title' => $faker->realText(50,2),
                 'body' => $faker->realText(400,2)
             ]);
