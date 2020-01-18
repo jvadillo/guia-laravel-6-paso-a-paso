@@ -129,4 +129,5 @@ vagrant ssh
 
 ¡Enhorabuena! Ya estás preparado para comenzar a crear tu primera aplicación web con Laravel.
 
-* Puedes detener la máquina virtual con el comando `vagrant halt`.
+
+Puedes detener la máquina virtual con el comando `vagrant halt`.

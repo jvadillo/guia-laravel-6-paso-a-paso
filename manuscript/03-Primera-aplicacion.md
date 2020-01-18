@@ -1,6 +1,5 @@
-## Aprende lo imprescindible en 9 pasos
-### Introducción
-Crearemos una aplicación web con Laravel paso a paso. Al finalizar los 9 pasos obtendremos como resultado una revista online a la que hemos llamado RevistApp y que mostrará los artículos almacenados en una base de datos. ¡Comencemos!
+# Tu primera aplicación en 9 pasos
+Ahora que ya tenemos nuestro entorno de desarrollo preparado, crearemos una aplicación web con Laravel paso por paso. Al finalizar los 9 pasos que encontrarás en este capítulo, obtendremos como resultado una revista online a la que hemos llamado RevistApp.  Esta aplicación mostrará los artículos de una revista almacenados en una base de datos. ¿Comenzamos ya?
 
 ### Paso 1 - Crea tu primer proyecto
 Accede a tu máquina virtual utilizando el comando `vagrant ssh` y ejecuta el siguiente comando para crear un nuevo proyecto:
@@ -9,15 +8,24 @@ Accede a tu máquina virtual utilizando el comando `vagrant ssh` y ejecuta el si
 composer create-project --prefer-dist laravel/laravel revistapp
 ```
 
-Este comando inicializará un nuevo proyecto creado en el directorio `revistapp`. Puedes acceder a la aplicación entrando a http://homestead.test (o el dominio que hayas indicado en la configuración) desde tu navegador favorito.
+Si recibes un error, probablemente sea porque todavía no tienes Composer instalado en tu máquina virtual. Para ello, ejecuta el siguiente comando:
+
+```
+composer global require laravel/installer
+```
+
+Una vez instalado vuelve a ejecutar el comando `create-project` de Composer. Este comando inicializará un nuevo proyecto creado en el directorio `revistapp`. Puedes acceder a la aplicación entrando a http://homestead.test (o el dominio que hayas indicado en la configuración) desde tu navegador favorito.
 
 De forma alternativa también puedes utilizar el comando `laravel new` que también creará un nuevo proyecto de Laravel en la carpeta especificada:
+
 ```
 laravel new revistapp
 ```
 
+Puedes entrar a ver los archivos que se han creado en la nueva carpeta del proyecto. A partir de ahora siempre trabajaremos dentro de este directorio. 
+
 ### Step 2 - Configura el proyecto
-#### La clave de la aplicación (Application Key)
+#### Generar la clave de la aplicación (Application Key)
 Laravel utiliza una clave para securizar tu aplicación. La clave de aplicación es un string de 32 caracteres utilizado para encriptar datos como la sesión de usuario. Cuando se instala Laravel utilizando Composer o el instalador de Laravel, la clave se genera automáticamente, por lo que no es necesario hacer nada. Comprueba que existe un valor para `APP_KEY` en el fichero de configuración `.env`. En caso de no tener una clave generada, créala utilizando el siguiente comando:
 
 ```
@@ -25,23 +33,23 @@ php artisan key:generate
 ```
 
 #### Establecer los permisos de directorio
-Homestead realiza este paso por nosotros, por lo que los permisos deberían estar correctamente establecidos. Si no estás utilizando Homestead o quieres desplegar tu aplicación en un servidor, no olvides establecer permisos de escritura para el servidor web en los directorios `storage` y  `bootstrap/cache`.
+Homestead realiza este paso por nosotros, por lo que si estás utilizando Homestead los permisos deberían estar correctamente establecidos. Si no estás utilizando Homestead o quieres desplegar tu aplicación en un servidor, no olvides establecer permisos de escritura para el servidor web en los directorios `storage` y  `bootstrap/cache`.
 
 ### Paso 3 - Crear un Router
 Cada vez que un usuario hace una petición a una de las rutas de la aplicación, Laravel trata la petición mediante un Router definido en el directorio `routes`, el cual será el encargado de direccionar la petición a un Controlador. Las rutas accesibles para navegadores estarán definidas en el archivo `routes/web.php` y aquellas accesibles para servicios web (webservices) estarán definidas en el archivo `routes/api.php`. A continuación se muestra un ejemplo:
 
 ```php
 Route::get('/articulos', function () {
-    return 'Let's read the articulos!';
+    return '¡Vamos a leer unos articulos!';
 });
 
 ```
 
-El código anterior muestra cómo se define una ruta básica. En este caso, cuando el usuario realice una petición sobre `/articulos`, nuestra aplicación enviará una respuesta al usuario con el string 'Let's read the articulos!'.
+El código anterior muestra cómo se define una ruta básica. En este caso, cuando el usuario realice una petición sobre `/articulos`, nuestra aplicación enviará una respuesta al usuario con el string '¡Vamos a leer unos articulos!'.
 
-Aparte de ejecutar las acciones definidas para cada ruta, Laravel ejecutará middlewere específico en función del Router utilizado (por ejemplo, el middlewere relacionado con las peticiones web proveerá de funcionalidades como el estado de la sesión o la protección (CSRF)[https://es.wikipedia.org/wiki/Cross-site_request_forgery]).
+Aparte de ejecutar las acciones definidas para cada ruta, Laravel ejecutará el middlewere específico en función del Router utilizado (por ejemplo, el middlewere relacionado con las peticiones web proveerá de funcionalidades como el estado de la sesión o la protección [CSRF](https://es.wikipedia.org/wiki/Cross-site_request_forgery).
 
-#### Ver rutas creadas
+#### Ver las rutas creadas
 Artisan incluye un comando para mostrar todas las rutas de una aplicación de forma rápida. Basta con ejecutar el siguiente comando en la consola:
 
 ```
@@ -49,7 +57,7 @@ php artisan route:list
 ```
 
 #### Devolver un JSON
-También es posible devolver un JSON. Laravel convertirá automáticamente un array a JSON:
+También es posible devolver un JSON. Laravel convertirá automáticamente cualquier array a JSON:
 
 ```php
 Route::get('/articulos', function () {
@@ -110,9 +118,9 @@ Route::get('/articulos', function () {
 
 #### Acceder a datos desde la vista
 
-Laravel utiliza el motor de plantillas [Blade](https://laravel.com/docs/6.x/blade) por defecto.
+Laravel utiliza el motor de plantillas [Blade](https://laravel.com/docs/6.x/blade) por defecto. Un motor de plantillas permite crear vistas empleando código HTML junto con código específico del motor empleado. De esta forma podremos mostrar información almacenada en variables, crear condiciones if/else, estructuras repetitivas, etc.
 
-Mostrar datos almacenados en variables es muy sencillo:
+En Blade mostrar datos almacenados en variables es muy sencillo:
 
 ```html
 <html>
@@ -123,10 +131,12 @@ Mostrar datos almacenados en variables es muy sencillo:
 </html>
 ```
 
+Tal y como se puede ver en el ejemplo anterior, basta con escribir el nombre de la variable entre llaves `{{ }}`.
+
 También es posible iterar por los datos de una colección o array. El siguiente ejemplo muestra como iterar por un array de strings de forma rápida:
 
 ```html
-<!-- View stored in resources/views/articulos.blade.php -->
+<!-- Vista almacenada en resources/views/articulos.blade.php -->
 <html>
     <body>
 	<h1>Vamos a leer al escritor {{ $nombre }}</h1>
@@ -196,13 +206,16 @@ Los controladores contienen la lógica para atender las peticiones recibidas. En
 
 #### Creando un Controller
 Existen dos formas de crear un controlador:
+
 - Crear manualmente una clase que extienda de la clase Controller de Laravel dentro del directorio `app/Http/Controllers`.
 - Utilizar el comando de Artisan `make:controller`. Artisan es una herramienta que nos provee Laravel para interactuar con la aplicación y ejecutar instrucciones.
 
 En este caso escogeremos la segunda opción y ejecutaremos el siguiente comando:
+
 ```
 php artisan make:controller ArticuloController
 ```
+
 De este modo Laravel creará automáticamente el controlador:.
 
 ```php
@@ -227,6 +240,7 @@ class ArticuloController extends Controller
     }
 }
 ```
+
 Añadiendo `--resource` al comando anterior, Artisan añadirá al controlador creado los siete métodos más comunes: `index()`, `create()`, `store()`, `show()`, `edit()`, `update()`, `destroy()`.
 
 #### Enrutar el Controlador
@@ -238,15 +252,13 @@ Route::get('articulos/{id}', 'ArticuloController@show');
 Route::get('articulos/{id}/create', 'ArticuloController@create');
 Route::post('articulos/', 'ArticuloController@store');
 ```
+
 De esta forma direccionaremos las peticiones a los métodos de los controladores.
 
-
 ### Paso 6 - Configurar la base de datos
-
 Es muy difícil de imaginar una aplicación web que no haga uso de una base de datos para almacenar la información. A continuación veremos como preparar la base de datos para nuestra aplicación.
 
 #### Configuración de la base de datos
-
 El fichero `.env` de Laravel contiene la configuración relacionada con la aplicación y el entorno, como por ejemplo la configuración de la base de datos. Abre el fichero `.env` con un editor y modifica las siguientes credenciales de la base de datos:
 
 ```
@@ -260,13 +272,14 @@ DB_PASSWORD=contraseña del usuario(root)
 Todas estas variables de configuración serán referenciadas desde el archivo de configuración `database.php`.
 
 #### Creación de la base de datos
-
 Accede al cliente de MySQL como root:
+
 ```
 mysql -u root
 ```
 
 Crea la base de datos si no está creada:
+
 ```
 CREATE DATABASE revistapp;
 ```
@@ -277,6 +290,7 @@ Las Migraciones (Migrations) se utilizan para construir el esquema de la base de
 ```
 php artisan make:migration create_articulos_table --create=articulos
 ```
+
 Laravel creará una nueva migración automáticamente en el directorio `database/migrations`.
 
 ```php
@@ -319,26 +333,33 @@ class CreateArticulosTable extends Migration
 ```
 
 Tal y como puedes deducir del código anterior, una migración contiene 2 métodos:
+
 - `up()`: se utiliza para crear nuevas tablas, columnas o índices a la base de datos.
 - `down()`: se utiliza para revertir operaciones realizadas por el método `up()`.
 
 Existen una gran variedad de tipos de columnas disponibles para definir las tablas. Puedes encontrarlas en la [documentación oficial](https://laravel.com/docs/4.2/schema#adding-columns).
 
 Para ejecutar las migraciones simplemente ejecuta el comando `migrate` de Artisan:
+
 ```
 php artisan migrate
 ```
+
 #### Crear usuario de base de datos
 Es recomendable utilizar un usuario de base de datos diferente a `root`. Para ello, desde MySQL ejecuta lo siguiente:
 
 ```sql
 CREATE USER 'nombre_usuario'@'localhost' IDENTIFIED BY 'tu_contrasena';
 ```
+
 El comando anterior crea el usuario con la contraseña indicada. El siguiente paso es otorgar permisos al usuario:
+
 ```sql
 GRANT ALL PRIVILEGES ON * . * TO 'nombre_usuario'@'localhost';
 ```
+
 Para que los cambios surjan efecto ejecuta lo siguiente:
+
 ```sql
 FLUSH PRIVILEGES;
 ```
@@ -354,6 +375,7 @@ En otras palabras, cada tabla de la base de datos corresponde a un Modelo, el cu
 
 #### Creando un Modelo
 Vamos a crear un Modelo:
+
 ```
 php artisan make:model Articulo
 ```
@@ -481,10 +503,13 @@ Puedes encontrar todas las posibilidades en la [documentación oficial](https://
 #### Tinker: un potente REPL para Laravel
 Tinker es un potente [REPL](https://es.wikipedia.org/wiki/REPL) o consola interactiva que viene por defecto en Laravel. Resulta muy útil durante el desarrollo ya que permite interactuar con nuestra aplicación Laravel y probar cantidad de cosas: eventos, acceso a datos, etc.
 Para iniciar Tinker hay que ejecutar el siguiente comando:
+
 ```
 php artisan tinker
 ```
+
 A partir de ese momento se puede comenzar a interactuar con nuestra aplicación, como muestra el ejemplo a continuación:
+
 ```bash
 >>> $articulo = new App\Articulo
 => App\Articulo {#3014}
@@ -521,8 +546,8 @@ A partir de ese momento se puede comenzar a interactuar con nuestra aplicación,
    }
 
 ```
-Para salir se ejecuta el comando `exit`.
 
+Para salir se ejecuta el comando `exit`.
 
 ### Bonus - Opciones (flags) de Artisan
 Existen opciones muy útiles para generar archivos relacionados con los modelos. El siguiente ejemplo crea un modelo junto con su controlador y migración utilizando un único comando:
@@ -530,11 +555,10 @@ Existen opciones muy útiles para generar archivos relacionados con los modelos.
 ```
 php artisan make:model Articulo -mcr
 ```
+
 - -m indica la creación de una migración
 - -c indica la creación de un controlador
  -r indica que el controlador creado será "resourceful" (incializado con los métodos).
-
-
 
 ### Práctica 1
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
