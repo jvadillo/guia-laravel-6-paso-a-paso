@@ -192,7 +192,7 @@ Puedes encontrar toda la información acerca de Blade en la [documentación ofic
 
 
 ### Paso 5 - Crear un Controlador
-Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticleController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
+Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticuloController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
 
 #### Creando un Controller
 Existen dos formas de crear un controlador:
@@ -373,7 +373,7 @@ class Articulo extends Model
 }
 ```
 
-Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Article` interactuará con la tabla llamada 'articulos'.
+Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Articulo` interactuará con la tabla llamada 'articulos'.
 
 #### Recuperando datos de la base de datos
 Los modelos de Eloquent se utilizan para recuperar información de las tablas relacionadas con el modelo. Proporcionan métodos como los siguientes:
@@ -411,7 +411,7 @@ El siguiente controlador contiene toda la lógica para insertar, actualizar y bo
    
 namespace App\Http\Controllers;
    
-use App\Article;
+use App\Articulo;
 use Illuminate\Http\Request;
 use Redirect;
    
@@ -419,7 +419,7 @@ class ArticuloController extends Controller
 {
 
     /**
-     * Create a new article instance.
+     * Create a new articulo instance.
      *
      * @param  Request  $request
      * @return Response
@@ -488,11 +488,11 @@ A partir de ese momento se puede comenzar a interactuar con nuestra aplicación,
 ```bash
 >>> $articulo = new App\Articulo
 => App\Articulo {#3014}
->>> $article->titulo="AA";
+>>> $articulo->titulo="AA";
 => "AA"
 >>> $articulo->contenido="BBBB";
 => "BBBB"
->>> $article
+>>> $articulo
 => App\Articulo {#3014
      titulo: "Articulo numero 2",
      contenido: "Lorem ipsum...",

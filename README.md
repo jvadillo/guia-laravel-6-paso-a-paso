@@ -378,7 +378,7 @@ Puedes encontrar toda la información acerca de Blade en la [documentación ofic
 
 
 ### Paso 5 - Crear un Controlador
-Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticleController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
+Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticuloController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
 
 #### Creando un Controller
 Existen dos formas de crear un controlador:
@@ -559,7 +559,7 @@ class Articulo extends Model
 }
 ```
 
-Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Article` interactuará con la tabla llamada 'articulos'.
+Por defecto un modelo de Eloquent almacena los registros en una tabla con el mismo nombre pero en plural. En este caso, `Articulo` interactuará con la tabla llamada 'articulos'.
 
 #### Recuperando datos de la base de datos
 Los modelos de Eloquent se utilizan para recuperar información de las tablas relacionadas con el modelo. Proporcionan métodos como los siguientes:
@@ -597,7 +597,7 @@ El siguiente controlador contiene toda la lógica para insertar, actualizar y bo
    
 namespace App\Http\Controllers;
    
-use App\Article;
+use App\Articulo;
 use Illuminate\Http\Request;
 use Redirect;
    
@@ -605,7 +605,7 @@ class ArticuloController extends Controller
 {
 
     /**
-     * Create a new article instance.
+     * Create a new articulo instance.
      *
      * @param  Request  $request
      * @return Response
@@ -674,11 +674,11 @@ A partir de ese momento se puede comenzar a interactuar con nuestra aplicación,
 ```bash
 >>> $articulo = new App\Articulo
 => App\Articulo {#3014}
->>> $article->titulo="AA";
+>>> $articulo->titulo="AA";
 => "AA"
 >>> $articulo->contenido="BBBB";
 => "BBBB"
->>> $article
+>>> $articulo
 => App\Articulo {#3014
      titulo: "Articulo numero 2",
      contenido: "Lorem ipsum...",
@@ -732,7 +732,7 @@ Añade a la aplicación anterior una nueva vista que muestre el detalle de un ar
 
 ### Borrado de registros
 El borrado de registros es un tema que suele traer complicaciones, debido a que desde una página HTML solo es posible enviar peticiones `GET` y `POST` (desde formularios). Por lo tanto, las alternativas son las siguientes:
-- Crear una ruta GET específica para el borrado. Por ejemplo: `/removeArticle/{id}`
+- Crear una ruta GET específica para el borrado. Por ejemplo: `/removeArticulo/{id}`
 - Hacer la petición utilizando AJAx y especificando en la llamada el tipo de método: `'type': 'DELETE'`
 - Emular la llamada `DELETE` mediante el campo oculto `_method`. Para ello podemos utilizar los helpers o directivas de Laravel en un formulario para notificar que se trata de una petición de tipo `DELETE`:
 
@@ -762,8 +762,8 @@ Los formularios HTML son la forma más habitual de recoger datos introducidos po
 Para este cometido necesitaremos crear dos nuevas rutas en nuestro Router: una para mostrar al usuario el formulario de recogida de datos y otra para recibir y tratar los datos introducidos por el usuario.
 
 ```php
-Route::get('articulos/create', 'ArticleController@create');
-Route::post('articulos/', 'ArticleController@store');
+Route::get('articulos/create', 'ArticuloController@create');
+Route::post('articulos/', 'ArticuloController@store');
 ```
 De igual forma que hemos necesitado dos nuevas rutas, también necesitaremos dos nuevos métodos en nuestro Controller:
 
@@ -771,7 +771,7 @@ De igual forma que hemos necesitado dos nuevas rutas, también necesitaremos dos
 class ArticuloController extends Controller
 {
     /**
-     * Show the form to create a new article.
+     * Show the form to create a new articulo.
      *
      * @return Response
      */
@@ -781,22 +781,22 @@ class ArticuloController extends Controller
     }
 
     /**
-     * Store a new article.
+     * Store a new articulo.
      *
      * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
     {
-        // Validate the Article
+        // Validate the Articulo
         
-        // Create the article
-        $prodcut = new Article();
+        // Create the articulo
+        $prodcut = new Articulo();
         
-        $article->title = request('title');
-        $article->body = request('body');
+        $articulo->titulo = request('titulo');
+        $articulo->contenido = request('body');
         
-        $article->save();
+        $articulo->save();
         
         return redirect('/articulos');
     }
@@ -809,11 +809,11 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
 <!-- View stored in resources/views/create.blade.php -->
 <html>
     <body>
-        <h1>Let's write a new article:</h1>
+        <h1>Let's write a new articulo:</h1>
         <form action="/articulos/create" method="POST">
             <div>
-                <label for="title">Name:</label>
-                <input type="text" id="title" name="title">
+                <label for="titulo">Name:</label>
+                <input type="text" id="titulo" name="titulo">
             </div>
             <div>
               <label for="body">Text:</label>
@@ -838,7 +838,7 @@ Empecemos por definir un layout básico:
 ```html
 <html>
     <head>
-        <title>App Name - @yield('title')</title>
+        <title>App Name - @yield('titulo')</title>
     </head>
     <body>
         <div class="container">
@@ -858,7 +858,7 @@ Ahora crearemos la vista concreta que especificará el contenido a introducir en
 ```html
 @extends('layouts.master')
 
-@section('title', 'Page Title')
+@section('titulo', 'Page Title')
 
 @section('content')
     <h1>Hello World!</h1>
@@ -880,9 +880,9 @@ Crea un layout que englobe la parte común que contienen todas las vistas de la 
 Una práctica muy habitual es asignar nombres a las rutas, lo cual es realmente sencillo:
 
 ```php
-Route::get('articulos/', 'ArticleController@index')->name('articulos.index');
-Route::get('articulos/create', 'ArticleController@index')->name('articulos.create');
-Route::get('articulos/{id}', 'ArticleController@show')->name('articulos.show');
+Route::get('articulos/', 'ArticuloController@index')->name('articulos.index');
+Route::get('articulos/create', 'ArticuloController@index')->name('articulos.create');
+Route::get('articulos/{id}', 'ArticuloController@show')->name('articulos.show');
 ```
 Como se puede deducir del ejemplo anterior, utlizamos el método `name()` para definir el nombre que queremos establecer para cada ruta.
 De este modo, podremos cargar las rutas utilizando el método global `route()`:
@@ -962,7 +962,7 @@ El método `asset()` generará una URL a nuestros recursos en la carpeta `public
 
 ### Relaciones One-to-Many
 #### Definir una relación
-Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos dos entidades, `User` y `Article`. Podríamos decir que un `User` tiene ('has') varios `Article` o que un `Article` pertenece a ('belongs to') un `User`. Por lo tanto, podemos definir la relación en cualquiera de los dos modelos, incluso en los dos.
+Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos dos entidades, `User` y `Articulo`. Podríamos decir que un `User` tiene ('has') varios `Articulo` o que un `Articulo` pertenece a ('belongs to') un `User`. Por lo tanto, podemos definir la relación en cualquiera de los dos modelos, incluso en los dos.
 
 ```php
 class User extends Model
@@ -972,16 +972,16 @@ class User extends Model
      */
     public function articulos()
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany('App\Articulo');
     }
 }
 ```
 
 ```php
-class Article extends Model
+class Articulo extends Model
 {
     /**
-     * Get the user record associated with the article.
+     * Get the user record associated with the articulo.
      */
     public function user()
     {
@@ -990,21 +990,21 @@ class Article extends Model
 }
 ```
 #### Acceder a los modelos de una relación
-El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articulos` o `$article->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
+El acceso se podrá hacer como propiedades del propio modelo, es decir, mediante `$user->articulos` o `$articulo->user`. Esto es gracias a que Eloquent utiliza lo que conocemos como 'dynamic properties' y acceder a los métodos de las relaciones como si fuesen propiedades:
 
 ```php
 $user = App\User::find(1); // Ejecuta la sentencia: select * from users where id = 1
 
 $user_articulos = $user->articulos; // Ejecutara la sentencia: select * from articulos where user_id = 1
 
-foreach ($user_articulos as $article) {
+foreach ($user_articulos as $articulo) {
     //
 }
 ```
-En el ejemplo anterior, la variable `$user_articulos` contiene una colección de objetos de la clase `Article`. 
+En el ejemplo anterior, la variable `$user_articulos` contiene una colección de objetos de la clase `Articulo`. 
 
 #### Claves foráneas (Foreign keys)
-Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'_id'`. Es decir, en el caso anterior la tabla de `Article` deberá contener una columna llamada `'user_id'`.
+Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key el nombre del modelo que contiene la colección añadiendo el sufijo `'_id'`. Es decir, en el caso anterior la tabla de `Articulo` deberá contener una columna llamada `'user_id'`.
 
 ```php
     public function up()
@@ -1012,7 +1012,7 @@ Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key 
         Schema::create('articulos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
+            $table->string('titulo');
             $table->text('body');
             $table->timestamps();
         });
@@ -1106,7 +1106,7 @@ class DatabaseSeeder extends Seeder
 
         for($i=0;$i<10;$i++){
             DB::table('articulos')->insert([
-                'title' => $faker->realText(50,2),
+                'titulo' => $faker->realText(50,2),
                 'body' => $faker->realText(400,2)
             ]);
         }
