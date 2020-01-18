@@ -31,3 +31,9 @@ Es importante conocer bien los actores principales del ecosistema Laravel:
 - Modelos (Models): se utilizan para interactuar con la base de datos y aplicar la lógica de negocio.
 
 ![Laravel diagram](https://raw.githubusercontent.com/jvadillo/guia-laravel-paso-a-paso/master/laravel.jpg)
+
+Tal y como muestra la imagen anterior, el flujo de una petición en nuestra aplicación web desarrollada con Laravel sería el siguiente:
+1. El punto de entrada de todas las peticiones es el archivo `public/index.php` el cual se encargará de lanzar una instancia de nuestra aplicación Laravel.
+2. La petición se envía al router, el cual la reenvía al controlador correspondiente.
+3. El controlador atiende la petición y realiza las acciones correspondientes (por ejemplo, puede interactuar con la base de datos para cargar o almacenar información).
+4. Por último, el controlador genera la vista correspondiente y se la envía al cliente.
