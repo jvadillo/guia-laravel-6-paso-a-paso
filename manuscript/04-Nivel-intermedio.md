@@ -1,7 +1,8 @@
-## Level up: Laravel nivel intermedio
+# Level up: Laravel nivel intermedio
 
-### Borrado de registros
+## Borrado de registros
 El borrado de registros es un tema que suele traer complicaciones, debido a que desde una página HTML solo es posible enviar peticiones `GET` y `POST` (desde formularios). Por lo tanto, las alternativas son las siguientes:
+
 - Crear una ruta GET específica para el borrado. Por ejemplo: `/removeArticulo/{id}`
 - Hacer la petición utilizando AJAx y especificando en la llamada el tipo de método: `'type': 'DELETE'`
 - Emular la llamada `DELETE` mediante el campo oculto `_method`. Para ello podemos utilizar los helpers o directivas de Laravel en un formulario para notificar que se trata de una petición de tipo `DELETE`:
@@ -13,6 +14,7 @@ El borrado de registros es un tema que suele traer complicaciones, debido a que 
     <!--  ...  -->
 </form>
 ```
+
 A partir de Laravel 5.6, se pueden utilizar las siguientes directivas de Blade:
 
 ```php	
@@ -23,10 +25,10 @@ A partir de Laravel 5.6, se pueden utilizar las siguientes directivas de Blade:
 </form>
 ```
 
-### Práctica 3
+## Práctica 3
 Añade la posibilidad de eliminar artículos mediante un enlace o botón en cada uno de los registros mostrados.
 
-### Formularios
+## Formularios
 Los formularios HTML son la forma más habitual de recoger datos introducidos por los usuarios y enviarlos a la aplicación.
 
 Para este cometido necesitaremos crear dos nuevas rutas en nuestro Router: una para mostrar al usuario el formulario de recogida de datos y otra para recibir y tratar los datos introducidos por el usuario.
@@ -35,6 +37,7 @@ Para este cometido necesitaremos crear dos nuevas rutas en nuestro Router: una p
 Route::get('articulos/create', 'ArticuloController@create');
 Route::post('articulos/', 'ArticuloController@store');
 ```
+
 De igual forma que hemos necesitado dos nuevas rutas, también necesitaremos dos nuevos métodos en nuestro Controller:
 
 ```php
@@ -76,7 +79,7 @@ class ArticuloController extends Controller
 El último paso es crear la vista que contenga el formulario HTML y que será mostrada al usuario al invocar el método `create()` del controlador:
 
 ```html
-<!-- View stored in resources/views/create.blade.php -->
+<!-- Vista almacenada en resources/views/create.blade.php -->
 <html>
     <body>
         <h1>Let's write a new articulo:</h1>
@@ -97,10 +100,10 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
 </html>
 ```
 
-### Práctica 4
+## Práctica 4
 Añade la posibilidad de añadir nuevos artículos mediante un formulario ubicado en una nueva vista.
 
-### Construir layouts
+## Construir layouts
 Las aplicaciones siempre contienen varias parte de la interfaz que son comunes en todas las páginas (la cabecera, menú de navegación, footer, etc.). Blade permite el uso de Layouts, los cuales permiten de forma muy sencilla compartir entre distintas vistas las partes que tienen en común y así evitar repetir lo mismo múltiples veces. La idea consiste en separar en un archivo distinto la parte común de nuestras vistas y especificar en ella las zonas que albergarán los contenidos específicos de cada vista (lo que no es común).
 	
 Empecemos por definir un layout básico:
@@ -143,10 +146,10 @@ Ahora crearemos la vista concreta que especificará el contenido a introducir en
 
 `@section` indica la sección del padre donde será introducido el contenido especificado entre las etiquetas `@section` y `@endsection`.
 
-### Práctica 5
+## Práctica 5
 Crea un layout que englobe la parte común que contienen todas las vistas de la aplicación.
 
-### Asignar nombres a las rutas
+## Asignar nombres a las rutas
 Una práctica muy habitual es asignar nombres a las rutas, lo cual es realmente sencillo:
 
 ```php
@@ -154,8 +157,10 @@ Route::get('articulos/', 'ArticuloController@index')->name('articulos.index');
 Route::get('articulos/create', 'ArticuloController@index')->name('articulos.create');
 Route::get('articulos/{id}', 'ArticuloController@show')->name('articulos.show');
 ```
+
 Como se puede deducir del ejemplo anterior, utlizamos el método `name()` para definir el nombre que queremos establecer para cada ruta.
 De este modo, podremos cargar las rutas utilizando el método global `route()`:
+
 ```php
 // Generar una url
 $url = route('articulos.index');
@@ -165,6 +170,7 @@ return redirect()->route('articulos.show');
 ```
 
 En ocasiones necesitaremos indicar al método route los parámetros que necesitará insertar:
+
 ```php
 Route::get('articulos/{id}', function ($id) {
     //
@@ -176,7 +182,7 @@ $url = route('articulos.show', ['id' => 12);
 
 Es posible comprobar las todas las rutas y sus nombres mediante el comande Artisan `php artisan route:list`.
 
-### Utilizar Bootstrap en tu proyecto
+## Utilizar Bootstrap en tu proyecto
 A diferencia de versiones anteriores, en su versión 6, Laravel no incluye por defecto las dependencias necesarias para Bootstrap. Por lo tanto, tendremos 3 opciones para utilizar Bootstrap:
 
 a) Referenciar las dependecias JS y CSS utilizando BootstrapCDN (enlaces disponibles en la [documentación oficial](https://getbootstrap.com/docs/4.4/getting-started/introduction/))
@@ -188,16 +194,19 @@ c) Utilizar Laravel Mix para compilar nuestros archivos JS y CSS.
 A continuación describiremos los pasos a seguir para incluir Bootstrap mediante la última opción descrita.
 
 #### 1. Instalar el paquete Laravel/UI mediante composer.
+
 ```bash
 composer require laravel/ui
 ```
 
 #### 2. Añadir bootstrap a nuestro proyecto
+
 ```bash
 php artisan ui bootstrap
 ```
 
 #### 3. Instalar las dependencias
+
 ```bash
 npm install
 ```
@@ -206,12 +215,14 @@ En ocasiones puede haber problemas si la máquina virtual se ejecuta en un host 
 ```bash
 npm install --no-bin-links
 ```
+
 #### 4. Compilar el código JS y CSS mediante Webpack:
 ```bash
 npm run dev
 ```
 
 #### 5. Incluir los ficheros generados (`public/js/app.js` y `public/css/app.css`) en nuestras vistas, utilizando el método helper `asset()`:
+
 ```html
 <html>
 <head>
@@ -228,9 +239,11 @@ npm run dev
 </body>
 </html>
 ```
+
 El método `asset()` generará una URL a nuestros recursos en la carpeta `public/`. Si cambiamos la ubicación de nuestros recursos lo tendremos que especificar en la variable `ASSET_URL` del fichero `.env`.
 
-### Relaciones One-to-Many
+## Relaciones One-to-Many
+
 #### Definir una relación
 Las relaciones en Eloquent ORM se definen como métodos. Supongamos que tenemos dos entidades, `User` y `Articulo`. Podríamos decir que un `User` tiene ('has') varios `Articulo` o que un `Articulo` pertenece a ('belongs to') un `User`. Por lo tanto, podemos definir la relación en cualquiera de los dos modelos, incluso en los dos.
 
@@ -271,6 +284,7 @@ foreach ($user_articulos as $articulo) {
     //
 }
 ```
+
 En el ejemplo anterior, la variable `$user_articulos` contiene una colección de objetos de la clase `Articulo`. 
 
 #### Claves foráneas (Foreign keys)
@@ -319,7 +333,7 @@ $table->foreign('user_id')
       ->onDelete('set null');
 ```
 
-### Consejo: cómo añadir columnas a modelo existente
+## Consejo: cómo añadir columnas a modelo existente
 Existen dos escenarios posibles en los cuales queremos realizar cambios sobre modelos existentes:
 - Estamos desarrollando una nueva aplicación y no nos importa borrar los datos existentes.
 - Tenemos una aplicación en uso y queremos añadir columnas sin perder ningún registro.
@@ -359,7 +373,7 @@ public function up()
 }
 ```
 
-### Generar datos de prueba
+## Generar datos de prueba
 Laravel incluye un mecanismo llamado Seeder que sirve para rellenar la base de datos con datos de prueba. Por defecto nos incluye la clase DatabaseSeeder en la que podemos incluir el código que genere los datos de prueba:
 
 ```php
@@ -385,18 +399,22 @@ class DatabaseSeeder extends Seeder
 ```
 
 Una vez creado nuestro Seeder es probable que necesites regenerar el fichero autoload.php:
+
 ```
 composer dump-autoload
 ```
+
 Por último, sólo nos quedaría lanzar el proceso de 'seeding':
+
 ```
 php artisan db:seed
 ```
+
 Si lo que quieres es lanzar el proceso de creación de base de datos y el de seeding a la vez, puedes utilizar el siguiente comando:
+
 ```
 php artisan migrate:fresh --seed
 ```
-
 
 #### Generar Seeders específicos
 Es recomendable crear un seeder específico por cada entidad. Para ello, puedes utilizar el siguiente comando:
@@ -422,16 +440,16 @@ public function run()
 ```
 
 
-### Práctica 6
+## Práctica 6
 La vista de detalle de artículo mostrará los comentarios del artículo e incluirá la posibilidad de añadir nuevos comentarios.
 
-### Práctica 7
+## Práctica 7
 Asigna nombres a las rutas y utilízalos desde los controladores y vistas de la aplicación.
 
-### Práctica 8
+## Práctica 8
 Añade estilo a la aplicación mediante Bootstrap 4.
 
-### Autenticación
+## Autenticación
 La autenticación es una funcionalidad presente en la gran mayoría de aplicaciones. Básicamente se trata de asegurar que un usuario es quién dice ser mediante un control de acceso a la aplicación.
 
 Laravel 6 nos trae de serie los elementos necesarios para implementar la autenticación en nuestras aplicaciones y no tener que preocuparnos de hacer todas las tareas por nosotros mismos (login, registro, recuperación de contraseña, validación de usuario, etc.).
@@ -559,13 +577,13 @@ if (Auth::check()) {
 }
  ```
 
-### Práctica 9
+## Práctica 9
 - Añade las funciones de login, registro y logout a la aplicación.
 - Protege la ruta empleada para escribir un nuevo artículo (solo usuarios autenticados podrán acceder).
 - La opción de borrar un artículo únicamente estará visible para usuarios autenticados.
 - Muestra los comentarios de los artículos únicamente a usuarios autenticados. A los usuarios no identificados muéstrales un mensaje con un enlace a la página de login.
 
-### Manejo de sesiones
+## Manejo de sesiones
 HTTP es un protocolo sin estado (stateless), es decir, no guarda ninguna información sobre conexiones anteriores. Esto quiere decir que nuestra aplicación no tiene "memoria", y cada petición realizada por un usuario es nueva para la aplicación. Las sesiones permiten afrontar este problema, ya que son un mecanismo para almacenar información entre las peticiones que realiza un usuario al navegar por nuestra aplicación. Laravel implementa las sesiones de forma que su uso es muy sencillo para los desarrolladores.
 
 #### Configuración
@@ -604,7 +622,7 @@ Existen dos formas principales de acceder a la inforamación de la sesión de us
     }
  ```
  
- ### Práctica 10
+## Práctica 10
 Añade las siguientes funcionalidades a la aplicación:
 - Guardar en sesión los artículos leídos: cuando un usuario entre a ver un artículo, se almacenará en sesión que ya lo ha leído.
 - Guardar en sesión los artículos favoritos de un usuario: el usuario podrá hacer click en un enlace/botón que guarde en sesión ese artículo como favorito.

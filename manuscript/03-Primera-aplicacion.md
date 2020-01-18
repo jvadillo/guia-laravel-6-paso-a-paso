@@ -1,7 +1,7 @@
-# Tu primera aplicación en 9 pasos
-Ahora que ya tenemos nuestro entorno de desarrollo preparado, crearemos una aplicación web con Laravel paso por paso. Al finalizar los 9 pasos que encontrarás en este capítulo, obtendremos como resultado una revista online a la que hemos llamado RevistApp.  Esta aplicación mostrará los artículos de una revista almacenados en una base de datos. ¿Comenzamos ya?
+# Tu primera aplicación en 8 pasos
+Ahora que ya tenemos nuestro entorno de desarrollo preparado, crearemos una aplicación web con Laravel paso por paso. Al finalizar los 8 pasos que encontrarás en este capítulo, obtendremos como resultado una revista online a la que hemos llamado RevistApp.  Esta aplicación mostrará los artículos de una revista almacenados en una base de datos. ¿Comenzamos ya?
 
-### Paso 1 - Crea tu primer proyecto
+## Paso 1 - Crea tu primer proyecto
 Accede a tu máquina virtual utilizando el comando `vagrant ssh` y ejecuta el siguiente comando para crear un nuevo proyecto:
 
 ```
@@ -24,7 +24,8 @@ laravel new revistapp
 
 Puedes entrar a ver los archivos que se han creado en la nueva carpeta del proyecto. A partir de ahora siempre trabajaremos dentro de este directorio. 
 
-### Step 2 - Configura el proyecto
+## Paso 2 - Configura el proyecto
+
 #### Generar la clave de la aplicación (Application Key)
 Laravel utiliza una clave para securizar tu aplicación. La clave de aplicación es un string de 32 caracteres utilizado para encriptar datos como la sesión de usuario. Cuando se instala Laravel utilizando Composer o el instalador de Laravel, la clave se genera automáticamente, por lo que no es necesario hacer nada. Comprueba que existe un valor para `APP_KEY` en el fichero de configuración `.env`. En caso de no tener una clave generada, créala utilizando el siguiente comando:
 
@@ -35,7 +36,7 @@ php artisan key:generate
 #### Establecer los permisos de directorio
 Homestead realiza este paso por nosotros, por lo que si estás utilizando Homestead los permisos deberían estar correctamente establecidos. Si no estás utilizando Homestead o quieres desplegar tu aplicación en un servidor, no olvides establecer permisos de escritura para el servidor web en los directorios `storage` y  `bootstrap/cache`.
 
-### Paso 3 - Crear un Router
+## Paso 3 - Crear un Router
 Cada vez que un usuario hace una petición a una de las rutas de la aplicación, Laravel trata la petición mediante un Router definido en el directorio `routes`, el cual será el encargado de direccionar la petición a un Controlador. Las rutas accesibles para navegadores estarán definidas en el archivo `routes/web.php` y aquellas accesibles para servicios web (webservices) estarán definidas en el archivo `routes/api.php`. A continuación se muestra un ejemplo:
 
 ```php
@@ -93,7 +94,7 @@ Route::get('/articulos', function () {
 });
 ```
 
-### Paso 4 - Crear una vista
+## Paso 4 - Crear una vista
 
 #### Definiendo una vista sencilla
 Las vistas contienen el HTML que sirve nuestra aplicación a los usuarios. Se almacenan en el directorio `resources/views` de nuestro proyecto.
@@ -201,7 +202,7 @@ Blade es un potente motor de plantillas que permite el uso de todo tipo de estru
 Puedes encontrar toda la información acerca de Blade en la [documentación oficial](https://laravel.com/docs/6.x/blade).
 
 
-### Paso 5 - Crear un Controlador
+## Paso 5 - Crear un Controlador
 Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticuloController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
 
 #### Creando un Controller
@@ -255,7 +256,7 @@ Route::post('articulos/', 'ArticuloController@store');
 
 De esta forma direccionaremos las peticiones a los métodos de los controladores.
 
-### Paso 6 - Configurar la base de datos
+## Paso 6 - Configurar la base de datos
 Es muy difícil de imaginar una aplicación web que no haga uso de una base de datos para almacenar la información. A continuación veremos como preparar la base de datos para nuestra aplicación.
 
 #### Configuración de la base de datos
@@ -284,7 +285,7 @@ Crea la base de datos si no está creada:
 CREATE DATABASE revistapp;
 ```
 
-### Paso 7 - Crear la Migración (Migration)
+## Paso 7 - Crear la Migración (Migration)
 Las Migraciones (Migrations) se utilizan para construir el esquema de la base de datos. Ejecuta el siguiente comando de Artisan para crear una nueva Migración para una tabla que llamaremos "articulos". 
 
 ```
@@ -366,7 +367,7 @@ FLUSH PRIVILEGES;
 
 No olvides actualizar los datos de acceso a base de datos en el fichero de configuración `.env`.
 
-### Paso 8 - Crear un Modelo
+## Paso 8 - Crear un Modelo
 Laravel incluye por defecto Eloquent ORM, el cual hace de la interacción con la base de datos una tarea fácil.Tal y como dice la documentación oficial:
 
 >Each database table has a corresponding "Model" which is used to interact with that table. Models allow you to query for data in your tables, as well as insert new records into the table.
@@ -549,7 +550,7 @@ A partir de ese momento se puede comenzar a interactuar con nuestra aplicación,
 
 Para salir se ejecuta el comando `exit`.
 
-### Bonus - Opciones (flags) de Artisan
+## Bonus - Opciones (flags) de Artisan
 Existen opciones muy útiles para generar archivos relacionados con los modelos. El siguiente ejemplo crea un modelo junto con su controlador y migración utilizando un único comando:
 
 ```
@@ -558,10 +559,10 @@ php artisan make:model Articulo -mcr
 
 - -m indica la creación de una migración
 - -c indica la creación de un controlador
- -r indica que el controlador creado será "resourceful" (incializado con los métodos).
+- -r indica que el controlador creado será "resourceful" (incializado con los métodos).
 
-### Práctica 1
+## Práctica 1
 Crea una aplicación Laravel que muestre un listado de artículos de la base de datos.
 
-### Práctica 2
+## Práctica 2
 Añade a la aplicación anterior una nueva vista que muestre el detalle de un artículo. Se accederá desde la vista del listado de artículos.
