@@ -791,10 +791,10 @@ class ArticuloController extends Controller
         // Validate the Articulo
         
         // Create the articulo
-        $prodcut = new Articulo();
+        $articulo = new Articulo();
         
         $articulo->titulo = request('titulo');
-        $articulo->contenido = request('body');
+        $articulo->contenido = request('contenido');
         
         $articulo->save();
         
@@ -816,8 +816,8 @@ El último paso es crear la vista que contenga el formulario HTML y que será mo
                 <input type="text" id="titulo" name="titulo">
             </div>
             <div>
-              <label for="body">Text:</label>
-              <textarea id="body" name="body"></textarea>
+              <label for="contenido">Text:</label>
+              <textarea id="contenido" name="contenido"></textarea>
             </div>
             <div>
               <input type="submit" value="Submit">
@@ -1013,7 +1013,7 @@ Por defecto, si no indicamos lo contrario, Eloquent utilizará como foreign key 
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('titulo');
-            $table->text('body');
+            $table->text('contenido');
             $table->timestamps();
         });
     }
@@ -1107,7 +1107,7 @@ class DatabaseSeeder extends Seeder
         for($i=0;$i<10;$i++){
             DB::table('articulos')->insert([
                 'titulo' => $faker->realText(50,2),
-                'body' => $faker->realText(400,2)
+                'contenido' => $faker->realText(400,2)
             ]);
         }
     }
