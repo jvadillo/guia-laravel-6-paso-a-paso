@@ -3,7 +3,7 @@
 Es importante que antes de comenzar a leer este libro, comprendas dos cosas fundamentales acerca del mismo:
 
 - Este libro no pretende ser una extensa guía de referencia que profundice en cada uno de los aspectos de Laravel. Su objetivo es el de mostrarte los aspectos más importantes de Laravel y enseñarte paso a paso y de forma práctica a desarrollar aplicaciones web.
-- El libro está en constante mejora y actualización. Toda contribución es bienvenida, ya sea en forma de corrección de errores, sugerencias sobre el contenido, difusión entre conocidos o redes sociales o cualquier otro tipo de colaboración que se te pueda ocurrir. 
+- El libro está en constante mejora y actualización. Toda contribución es bienvenida, ya sea en forma de corrección de errores, sugerencias sobre el contenido, difusión entre conocidos o redes sociales o cualquier otro tipo de colaboración que se te pueda ocurrir. Puedes hacerlo de forma sencilla escribiendo un mensaje directo en Twitter a @JonVadillo.
 
 ## Prerequisitos
 Para seguir esta guía únicamente necesitarás conocimientos básicos/medios de PHP y motivación para aprender. Si todavía no dispones de estos conocimientos, puedes utilizar el material gratuito disponible en http://jonvadillo.com/learn para comenzar tu aprendizaje.
