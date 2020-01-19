@@ -5,7 +5,7 @@
 
 Este es un **libro grauito para aprender Laravel paso a paso**, pensado para personas con conocimientos básicos de PHP que quieran comenzar a crear aplicaciones profesionales con el framework de PHP más potente de la actualidad. Ha sido escrito para aprender de forma práctica y ágil, centrándose en los aspectos más útiles del framework (**sin perder el tiempo es cosas que nunca utilizarás**). Mediante pequeñas prácticas y ejemplos irás aprendiendo los fundamentos básicos hasta llegar a crear aplicaciones web robustas y profesionales.
 
-![Portada del libro Aprende Laravel paso a paso](https://github.com/jvadillo/guia-laravel-paso-a-paso/blob/master/manuscript/images/aprende-laravel-cover.png)
+![Portada del libro Aprende Laravel paso a paso](https://github.com/jvadillo/guia-laravel-paso-a-paso/blob/master/manuscript/images/small-aprende-laravel-cover.png)
 
 **Descargar libro [aquí](https://leanpub.com/aprende-laravel/)**
 
