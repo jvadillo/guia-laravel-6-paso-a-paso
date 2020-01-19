@@ -165,9 +165,9 @@ Route::get('/articulos', function () {
 
 Los datos se le pasarán como un array de tipo clave-valor.
 
-Blade es un potente motor de plantillas que permite el uso de todo tipo de estructuras:
+El motor de plantillas Blade permite el uso de todo tipo de estructuras:
 
-```html
+```php
 @for ($i = 0; $i < 10; $i++)
     El valor actual es {{ $i }}
 @endfor
@@ -203,7 +203,7 @@ Puedes encontrar toda la información acerca de Blade en la [documentación ofic
 
 
 ## Paso 5 - Crear un Controlador
-Los controladores contienen la lógica para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones relacionadas con una misma entidad. Por ejemplo, el ArticuloController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
+Los controladores **contienen la lógica** para atender las peticiones recibidas. En otras palabras, un Controlador es una clase que agrupa el comportamiento de todas las peticiones **relacionadas con una misma entidad**. Por ejemplo, el ArticuloController será el encargado de definir el comportamiento de acciones como: creación de un artículo, modificación de un artóculo, búsqueda de artículos, etc.
 
 #### Creando un Controller
 Existen dos formas de crear un controlador:
@@ -368,7 +368,7 @@ FLUSH PRIVILEGES;
 No olvides actualizar los datos de acceso a base de datos en el fichero de configuración `.env`.
 
 ## Paso 8 - Crear un Modelo
-Laravel incluye por defecto Eloquent ORM, el cual hace de la interacción con la base de datos una tarea fácil.Tal y como dice la documentación oficial:
+Laravel incluye por defecto Eloquent ORM, el cual hace de la **interacción con la base de datos** una tarea fácil.Tal y como dice la documentación oficial:
 
 >Each database table has a corresponding "Model" which is used to interact with that table. Models allow you to query for data in your tables, as well as insert new records into the table.
 
@@ -502,7 +502,7 @@ $articulo = App\Articulo::firstOrCreate(['name' => 'Laptop']);
 Puedes encontrar todas las posibilidades en la [documentación oficial](https://laravel.com/docs/6.x/eloquent).
 
 #### Tinker: un potente REPL para Laravel
-Tinker es un potente [REPL](https://es.wikipedia.org/wiki/REPL) o consola interactiva que viene por defecto en Laravel. Resulta muy útil durante el desarrollo ya que permite interactuar con nuestra aplicación Laravel y probar cantidad de cosas: eventos, acceso a datos, etc.
+Tinker es un potente [REPL](https://es.wikipedia.org/wiki/REPL) o **consola interactiva** que viene por defecto en Laravel. Resulta muy útil durante el desarrollo ya que permite interactuar con nuestra aplicación Laravel y probar cantidad de cosas: eventos, acceso a datos, etc.
 Para iniciar Tinker hay que ejecutar el siguiente comando:
 
 ```
