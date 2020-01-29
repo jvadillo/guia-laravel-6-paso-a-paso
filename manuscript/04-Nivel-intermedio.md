@@ -592,7 +592,7 @@ Laravel soporta el manejo de sesiones con distintos backends (bases de datos, fi
 Más información sobre la configuración en la [documentación oficial](https://laravel.com/docs/6.x/session).
 
 #### Uso de las sesiones
-Existen dos formas principales de acceder a la inforamación de la sesión de usuario:
+Existen dos formas principales de acceder a la información de la sesión de usuario:
 -  El helper global `session`
  ```php
     // Obtener un valor de la sesión
